@@ -11,7 +11,7 @@ from pyoxigraph import Store, parse, RdfFormat, QueryResultsFormat
 
 SCRIPTS_DIR = Path("scripts")
 SRC_DIR = Path("src")
-VOCABS_SRC_DIR = Path("src") / "begrippenlijsten"
+VOCABS_SRC_DIR = Path("src") / "waardelijsten"
 BUILD_DIR = Path("build")
 DOCS_DIR = Path("docs")
 

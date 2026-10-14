@@ -1,5 +1,5 @@
 site:
-  url: https://modellen.netbeheernederland.nl/begrippenlijsten
+  url: https://modellen.netbeheernederland.nl/waardelijsten
   start_page: ROOT::index.adoc
 content:
   sources:

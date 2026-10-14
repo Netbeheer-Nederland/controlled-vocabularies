@@ -1,4 +1,4 @@
-@prefix : <https://modellen.netbeheernederland.nl/begrippenlijsten/marktpartijen#> .
+@prefix : <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -9,10 +9,10 @@
 @prefix status: <https://inspire.ec.europa.eu/registry/status/> .
 @prefix owl: <http://www.w3.org/2002/07/owl> .
 
-<https://modellen.netbeheernederland.nl/begrippenlijsten/marktpartijen.skos.ttl> a owl:Ontology .
+<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen.skos.ttl> a owl:Ontology .
 
 
-<https://modellen.netbeheernederland.nl/begrippenlijsten/marktpartijen> a skos:ConceptScheme ;
+<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> a skos:ConceptScheme ;
     dcterms:subject nbnl-term:hc9px ;
     skos:notation "marktpartijen" ;
     dcterms:type eu-asset:c_5b130cc6 ;  # Authority file.

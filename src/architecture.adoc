@@ -17,16 +17,16 @@ Each *controlled vocabulary* is identified by its IRI, and so are each of the te
 [cols="1,1,3"]
 |===
 2+h| Controlled vocabulary
-| `\https://modellen.netbeheernederland.nl/begrippenlijsten/\{vocabulary}`
+| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}`
 .3+| _Representation_
 h| Web documentation (HTML)
-|`\https://modellen.netbeheernederland.nl/begrippenlijsten/\{vocabulary}.html`
+|`\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.html`
 h| SKOS (Turtle)
-| `\https://modellen.netbeheernederland.nl/begrippenlijsten/\{vocabulary}.skos.ttl`
+| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.skos.ttl`
 h| SHACL (Turtle)
-| `\https://modellen.netbeheernederland.nl/begrippenlijsten/\{vocabulary}.shacl.ttl`
+| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.shacl.ttl`
 2+h| Controlled vocabulary term
-| `\https://modellen.netbeheernederland.nl/begrippenlijsten/\{vocabulary}#\{term}`
+| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}#\{term}`
 |===
 
 where:
