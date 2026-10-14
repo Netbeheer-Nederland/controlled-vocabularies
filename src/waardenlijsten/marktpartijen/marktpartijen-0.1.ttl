@@ -9,10 +9,10 @@
 @prefix status: <https://inspire.ec.europa.eu/registry/status/> .
 @prefix owl: <http://www.w3.org/2002/07/owl> .
 
-<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen.skos.ttl> a owl:Ontology .
-
-
-<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> a skos:ConceptScheme ;
+<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> a skos:ConceptScheme , owl:Ontology .
+    owl:versionIRI <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen/0.1> ;
+    owl:versionInfo "0.1";
+    dcterms:hasFormat <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen-0.1.ttl> ;
     dcterms:subject nbnl-term:hc9px ;
     skos:notation "marktpartijen" ;
     dcterms:type eu-asset:c_5b130cc6 ;  # Authority file.
@@ -24,7 +24,7 @@
     adms:status status:valid ;
     skos:notation "COTEQ" ;
     skos:topConceptOf : ;
-    skos:inScheme : .
+    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
 
 :EDSN a skos:Concept ;
     skos:prefLabel "Energie Data Services Nederland" ;
@@ -105,3 +105,10 @@
     skos:notation "ESSENT" ;
     skos:topConceptOf : ;
     skos:inScheme : .
+
+# DEPRECATED
+
+:FAKE a skos:Concept ;
+    skos:prefLabel "Coteq Netbeheer B.V." ;
+    owl:deprecated "true"^^xsd:boolean ;
+    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
