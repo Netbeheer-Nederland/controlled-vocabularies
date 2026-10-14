@@ -7,60 +7,27 @@ import json
 import textwrap
 import shutil
 import jinja2
+import sys
+import yaml
 from pyoxigraph import Store, parse, RdfFormat, QueryResultsFormat
 
-SCRIPTS_DIR = Path("scripts")
-SRC_DIR = Path("src")
-VOCABS_SRC_DIR = Path("src") / "waardelijsten"
+# Paths: src/
+DOCS_SRC = Path("src") / "docs"
+VOCABS_SRC = Path("src") / "waardelijsten"
+
+# Paths: build/
 BUILD_DIR = Path("build")
+ANTORA_ROOT_COMPONENT_DIR = BUILD_DIR / "docs"
+ANTORA_ROOT_MODULE_DIR = ANTORA_ROOT_COMPONENT_DIR / "modules" / "ROOT"
+
+# Paths: docs/
 DOCS_DIR = Path("docs")
 
-ANTORA_COMPONENT_DIR = BUILD_DIR / "docs"
-ANTORA_ROOT_MODULE_DIR = ANTORA_COMPONENT_DIR / "modules" / "ROOT"
-ANTORA_PLAYBOOK = Path("antora-playbook.local.yml")
+# Paths: scripts/
+SCRIPTS_DIR = Path("scripts")
+TEMPLATES_DIR = SCRIPTS_DIR / "templates"
 
-
-def generate_skos_ontology(scheme, terms, src_file, dst=None):
-    if not dst:
-        dst = BUILD_DIR / Path(scheme["notation"]["value"]).with_suffix(".skos.ttl")
-    shutil.copy(src_file, dst)
-
-    # NOTE: Currently the source file is not processed, i.e. equal to the
-    # built file.
-    # TODO: Add version metadata which has the Git ref as value.
-
-    return dst
-
-
-def generate_shacl_ontology(scheme, terms, src_file, dst=None):
-    if not dst:
-        dst = BUILD_DIR / Path(scheme["notation"]["value"]).with_suffix(".shacl.ttl")
-
-    shacl_template = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
-    ).get_template("scheme.shacl.ttl.jinja2")
-    shacl = shacl_template.render(scheme=scheme, terms=terms)
-
-    with dst.open("wt") as f:
-        f.write(shacl)
-
-    return dst
-
-
-def generate_antora_page(scheme, terms, src_file, dst=None):
-    if not dst:
-        dst = (BUILD_DIR / scheme["notation"]["value"]).with_suffix(".adoc")
-
-    adoc_template = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
-    ).get_template("scheme.adoc.jinja2")
-
-    adoc = adoc_template.render(scheme=scheme, terms=terms)
-
-    with dst.open("wt") as f:
-        f.write(adoc)
-
-    return dst
+ANTORA_PLAYBOOK = sys.argv[1]
 
 
 def open_vocabulary(src_file):
@@ -82,9 +49,12 @@ def read_vocabulary(src_file):
             """
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX dcterms: <http://purl.org/dc/terms/>
+        PREFIX owl: <http://www.w3.org/2002/07/owl>
         SELECT *
         WHERE {
-            ?uri a skos:ConceptScheme ;
+            ?iri a skos:ConceptScheme ;
+                owl:versionIRI ?versionIri ;
+                owl:versionInfo ?version ;
                 dcterms:subject ?subject ;
                 dcterms:type ?type ;
                 skos:notation ?notation ;
@@ -97,32 +67,30 @@ def read_vocabulary(src_file):
     terms = sorted(
         json.loads(
             vocab.query(
-                """
+                f"""
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX adms: <http://www.w3.org/ns/adms#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl>
         SELECT *
-        WHERE {
-            ?uri a skos:Concept ;
+        WHERE {{
+            ?iri a skos:Concept ;
                 skos:prefLabel ?prefLabel ;
-                adms:status ?status ;
-                skos:notation ?notation .
-        }
+                skos:notation ?notation ;
+                skos:inScheme ?scheme .
+                OPTIONAL {{ ?iri owl:deprecated ?deprecated }}
+        }}
     """
             ).serialize(format=QueryResultsFormat.JSON)
         )["results"]["bindings"],
-        key=lambda t: t["uri"]["value"],
+        key=lambda t: t["iri"]["value"],
     )
 
     return scheme, terms
 
 
 def write_nav():
-    with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("w") as f:
-        for info_page in SRC_DIR.glob("*.adoc"):
-            if info_page.name != "index.adoc":
-                f.write(f"* xref::{info_page.name}[]\n")
-        f.write(f"* Begrippenlijsten\n")
-        for vocab in VOCABS_SRC_DIR.glob("*.ttl"):
+    with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("a") as f:
+        f.write(f"* Waardelijsten\n")
+        for vocab in VOCABS_SRC.glob("*.ttl"):
             f.write(f"** xref::{vocab.with_suffix('.adoc').name}[]")
 
 
@@ -132,76 +100,97 @@ def prepare_build_dir():
     BUILD_DIR.mkdir(parents=True)
 
 
-def create_antora_component():
-    os.makedirs(ANTORA_COMPONENT_DIR)
-    os.makedirs(ANTORA_ROOT_MODULE_DIR / "pages")
-    os.makedirs(ANTORA_ROOT_MODULE_DIR / "attachments")
+def read_playbook(playbook_file):
+    with open(playbook_file) as f:
+        playbook = yaml.safe_load(f)
 
-    # Write Antora component version descriptor.
-    with (ANTORA_COMPONENT_DIR / "antora.yml").open("wt") as f:
-        f.write(
-            textwrap.dedent(
-                """
-            name: ROOT
-            title: NBNL Begrippenlijsten
-            version: ~
-            nav:
-            - modules/ROOT/nav.adoc
-        """
-            ).lstrip()
-        )
-
-    # Copy pages
-    for page_file in SRC_DIR.glob("*.adoc"):
-        shutil.copy(page_file, ANTORA_ROOT_MODULE_DIR / "pages")
+    return playbook
 
 
-def relocate_skos_schemes():
-    for skos_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.skos.ttl"):
-        shutil.copy(skos_file, DOCS_DIR)
+def build_vocabulary(src_dir):
+    vocab_name = src_dir.stem
+    vocabulary_dir = BUILD_DIR / "waardelijsten" / vocab_name
+    vocabulary_dir.mkdir(parents=True)
 
+    playbook = read_playbook(ANTORA_PLAYBOOK)
 
-def relocate_shacl_shapes():
-    for shacl_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.shacl.ttl"):
-        shutil.copy(shacl_file, DOCS_DIR)
+    for vocab_version in src_dir.glob("*.ttl"):
+        scheme, terms = read_vocabulary(vocab_version)
+        version = scheme["version"]["value"]
+        title = scheme["title"]["value"]
+        skos_iri = f"{playbook['site']['url']}/{vocab_name}/{version}/skos.ttl"
+        shacl_iri = f"{playbook['site']['url']}/{vocab_name}/{version}/shacl.ttl"
+        component_version = vocabulary_dir / version
+        root_module = component_version / "modules" / "ROOT"
+        root_module.mkdir(parents=True)
+
+        (root_module / "pages").mkdir()
+        (root_module / "attachments").mkdir()
+        (root_module / "examples").mkdir()
+        (root_module / "partials").mkdir()
+        (root_module / "images").mkdir()
+
+        # Write Antora component version descriptor.
+        with (component_version / "antora.yml").open("wt") as f:
+            f.write(
+                textwrap.dedent(
+                    f"""
+                name: {vocab_name}
+                title: {title}
+                version: '{version}'
+                nav:
+                - modules/ROOT/nav.adoc
+            """
+                ).lstrip()
+            )
+
+        # Write page.
+        adoc_template = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(TEMPLATES_DIR)
+        ).get_template("scheme.adoc.jinja2")
+
+        adoc = adoc_template.render(scheme=scheme, terms=terms, skos_iri=skos_iri, shacl_iri=shacl_iri)
+
+        with (root_module / "pages" / "index.adoc").open("wt") as f:
+            f.write(adoc)
+
+        # Write SKOS ontology.
+        shutil.copy(vocab_version, root_module / "attachments" / f"{vocab_name}-{version}.skos.ttl")
+
+        # Write SHACL ontology.
+        shacl_template = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(TEMPLATES_DIR)
+        ).get_template("scheme.shacl.ttl.jinja2")
+        shacl = shacl_template.render(scheme=scheme, terms=terms, shacl_iri=shacl_iri)
+
+        with (root_module / "attachments" / f"{vocab_name}-{version}.shacl.ttl").open("wt") as f:
+            f.write(shacl)
 
 
 def run_antora():
     os.system(f"npx antora {ANTORA_PLAYBOOK}")
 
 
+def build_antora_root_component_version():
+    shutil.copytree(DOCS_SRC, ANTORA_ROOT_COMPONENT_DIR)
+
+
+def relocate_artifacts():
+    for artifact in DOCS_DIR.glob("**/_attachments/*.ttl"):
+        shutil.copy(artifact, artifact.parents[1] / "".join(artifact.suffixes[-2:]).lstrip("."))
+
+
 def build():
     prepare_build_dir()
-    create_antora_component()
+    build_antora_root_component_version()
 
-    for src_file in {f for f in VOCABS_SRC_DIR.iterdir() if f.name.endswith(".ttl")}:
-        scheme, terms = read_vocabulary(src_file)
-        scheme_name = scheme["notation"]["value"]
+    for vocab_src in {f for f in VOCABS_SRC.iterdir() if Path(f).is_dir()}:
+        build_vocabulary(vocab_src)
 
-        generate_skos_ontology(
-            scheme,
-            terms,
-            src_file,
-            ANTORA_ROOT_MODULE_DIR / "attachments" / f"{scheme_name}.skos.ttl",
-        )
-        generate_shacl_ontology(
-            scheme,
-            terms,
-            src_file,
-            ANTORA_ROOT_MODULE_DIR / "attachments" / f"{scheme_name}.shacl.ttl",
-        )
-        generate_antora_page(
-            scheme,
-            terms,
-            src_file,
-            ANTORA_ROOT_MODULE_DIR / "pages" / f"{scheme_name}.adoc",
-        )
-
-    write_nav()
+    # write_nav()
 
     run_antora()
-    relocate_skos_schemes()
-    relocate_shacl_shapes()
+    relocate_artifacts()
     (DOCS_DIR / ".nojekyll").touch()  # Disables GitHub's default Jekyll CI/CD pipeline.
 
 

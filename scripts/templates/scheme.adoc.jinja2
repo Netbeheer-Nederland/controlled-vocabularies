@@ -1,27 +1,28 @@
 = {{ scheme["title"]["value"] }}
 
+IRI:: {{ scheme["iri"]["value"] }}
+Version IRI:: {{ scheme["versionIri"]["value"] }}
 Subject:: {{ scheme["subject"]["value"] }}
 Vocabulary type:: {{ scheme["type"]["value"] }}
+Version:: {{ scheme["version"]["value"] }}
 Artefacts::
 [no-bullet]
-* https://modellen.netbeheernederland.nl/begrippenlijsten/{{ scheme["notation"]["value"] }}.skos.ttl[SKOS concept scheme (Turtle),window=read-later)]
-* https://modellen.netbeheernederland.nl/begrippenlijsten/{{ scheme["notation"]["value"] }}.shacl.ttl[SHACL shapes graph (Turtle),window=read-later]
-
-{# TODO: These linked URIs should be dynamic and passed to the template ^ #}
+* {{ skos_iri }}[SKOS concept scheme (Turtle),window=read-later)]
+* {{ shacl_iri }}[SHACL shapes graph (Turtle),window=read-later)]
 
 == Terms
 
 |===
 | Label | Notation
 
-{% for term in terms if not term["status"]["value"] == "https://inspire.ec.europa.eu/registry/status/invalid" %}
-| [[{{ term["notation"]["value"] }}]]{{ term["uri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]
+{% for term in terms if not term.get("deprecated", dict()).get("value") %}
+| [[{{ term["notation"]["value"] }}]]{{ term["iri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]
 | `{{ term["notation"]["value"] }}`
 {% endfor %}
 |===
 
 [discrete]
 === Deprecated
-{% for term in terms if term["status"]["value"] == "https://inspire.ec.europa.eu/registry/status/invalid" %}
-{{ term["uri"]["value"] }}[{{ term["prefLabel"]["value"] }}]{% if not loop.last %}, {% endif %}
+{% for term in terms if term.get("deprecated", dict()).get("value") %}
+{{ term["iri"]["value"] }}[{{ term["prefLabel"]["value"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

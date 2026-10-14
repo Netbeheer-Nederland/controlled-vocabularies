@@ -1,13 +1,19 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<{{ scheme["uri"]["value"] }}.shacl.ttl> a owl:Ontology .
+<{{ scheme["versionIri"]["value"] }}> a owl:Ontology , sh:ShapesGraph ;
+    owl:versionInfo "{{ scheme['version']['value'] }}" ;
+    rdfs:seeAlso <{{ scheme["iri"]["value"] }}> ;
+    dcterms:hasFormat <shacl_iri> .
 
-<{{ scheme["uri"]["value"] }}#{{ scheme["notation"]["value"] }}Shape> a sh:NodeShape ;
+<{{ scheme["iri"]["value"] }}#{{ scheme["notation"]["value"] }}Shape> a sh:NodeShape ;
     skos:scopeNote "Users who wish to restrict properties to exclusively allow values from this code list can import this ontology and use this node shape." ;
     sh:in (
-{%- for term in terms %}
-        <{{ term["uri"]["value"] }}>
+{%- for term in terms if not term.get("deprecated", dict()).get("value") %}
+        <{{ term["iri"]["value"] }}>
 {%- endfor %}
     ) .
+

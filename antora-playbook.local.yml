@@ -4,8 +4,7 @@ site:
 content:
   sources:
     - url: ''
-      branches: HEAD
-      start_paths: build/docs
+      start_paths: [build/docs, build/waardelijsten/*/*]
 asciidoc:
   attributes:
     page-pagination: ''

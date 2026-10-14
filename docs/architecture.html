@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Architecture</title>
     <link rel="canonical" href="http://localhost:8000/architecture.html">
-    <link rel="prev" href="shacl.html">
-    <link rel="next" href="marktpartijen.html">
     <meta name="generator" content="Antora 3.2.1">
     <link rel="stylesheet" href="./_/css/site.css">
     <link rel="icon" href="./_/img/favicon.png" type="image/png">
@@ -39,40 +37,25 @@
     <div class="panels">
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <h3 class="title"><a href="index.html">NBNL Begrippenlijsten</a></h3>
+    <h3 class="title"><a href="index.html">Referentiewaardelijsten</a></h3>
     <div class="version"></div>
   </div>
   <ul class="components">
+    <li class="component">
+      <div class="title"><a href="marktpartijen/0.2/index.html">Marktpartijen</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="marktpartijen/0.2/index.html">0.2</a>
+        </li>
+        <li class="version">
+          <a href="marktpartijen/0.1/index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
-      <div class="title"><a href="index.html">NBNL Begrippenlijsten</a></div>
+      <div class="title"><a href="index.html">Referentiewaardelijsten</a></div>
     </li>
   </ul>
-</div>
-<div class="nav-panel-menu is-active" data-panel="menu">
-  <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="shacl.html">Reusing controlled terms in SHACL enumerations</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="architecture.html">Architecture</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Begrippenlijsten</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="marktpartijen.html">Marktpartijen</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-</ul>
-  </nav>
 </div>
     </div>
   </aside>
@@ -82,7 +65,7 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">NBNL Begrippenlijsten</a></li>
+    <li><a href="index.html">Referentiewaardelijsten</a></li>
     <li><a href="architecture.html">Architecture</a></li>
   </ul>
 </nav>
@@ -128,24 +111,24 @@
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Controlled vocabulary</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/begrippenlijsten/{vocabulary}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{vocabulary}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><em>Representation</em></p></td>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Web documentation (HTML)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/begrippenlijsten/{vocabulary}.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{vocabulary}.html</code></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">SKOS (Turtle)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/begrippenlijsten/{vocabulary}.skos.ttl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{vocabulary}.skos.ttl</code></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">SHACL (Turtle)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/begrippenlijsten/{vocabulary}.shacl.ttl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{vocabulary}.shacl.ttl</code></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Controlled vocabulary term</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/begrippenlijsten/{vocabulary}#{term}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{vocabulary}#{term}</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -308,10 +291,6 @@ Each modification to the vocabulary <em>does</em> result in a different version 
 <a href="#_footnoteref_2">2</a>. In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="shacl.html">Reusing controlled terms in SHACL enumerations</a></span>
-  <span class="next"><a href="marktpartijen.html">Marktpartijen</a></span>
-</nav>
 </article>
   </div>
 </main>
