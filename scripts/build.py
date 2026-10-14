@@ -180,14 +180,28 @@ def relocate_artifacts():
         shutil.copy(artifact, artifact.parents[1] / "".join(artifact.suffixes[-2:]).lstrip("."))
 
 
+def write_navs(nav):
+    with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("wt") as f:
+        f.write(nav)
+
+    for vocab in {f for f in (BUILD_DIR / "waardelijsten").glob("*/*") if Path(f).is_dir()}:
+        with (vocab / "modules" / "ROOT" / "nav.adoc").open("w") as f:
+            f.write(nav)
+
+
 def build():
     prepare_build_dir()
     build_antora_root_component_version()
 
+    nav = (ANTORA_ROOT_MODULE_DIR / "nav.adoc").read_text() + "\n"
+    nav += "* Waardelijsten\n"
+
     for vocab_src in {f for f in VOCABS_SRC.iterdir() if Path(f).is_dir()}:
         build_vocabulary(vocab_src)
 
-    # write_nav()
+        nav += f"** xref:{vocab_src.stem}::index.adoc[]\n"
+
+    write_navs(nav)
 
     run_antora()
     relocate_artifacts()
