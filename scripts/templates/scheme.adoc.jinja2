@@ -1,19 +1,32 @@
 = {{ scheme["title"]["value"] }}
 
-IRI:: {{ scheme["iri"]["value"] }}
-Version IRI:: {{ scheme["versionIri"]["value"] }}
-Subject:: {{ scheme["subject"]["value"] }}
-Vocabulary type:: {{ scheme["type"]["value"] }}
-Version:: {{ scheme["version"]["value"] }}
-Artefacts::
-[no-bullet]
+[cols="h,4"]
+|===
+| IRI
+| {{ scheme["iri"]["value"] }}
+
+| Version IRI
+| {{ scheme["versionIri"]["value"] }}
+
+| Subject
+| {{ scheme["subject"]["value"] }}
+
+| Vocabulary type
+| {{ scheme["type"]["value"] }}
+
+| Version
+| {{ scheme["version"]["value"] }}
+
+| Artefacten
+a| [no-bullet]
 * {{ skos_iri }}[SKOS concept scheme (Turtle),window=read-later)]
 * {{ shacl_iri }}[SHACL shapes graph (Turtle),window=read-later)]
+|===
 
-== Terms
+== Waarden
 
 |===
-| Label | Notation
+| Voorkeursterm | Notatie
 
 {% for term in terms if not term.get("deprecated", dict()).get("value") %}
 | [[{{ term["notation"]["value"] }}]]{{ term["iri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]
@@ -22,7 +35,7 @@ Artefacts::
 |===
 
 [discrete]
-=== Deprecated
+=== Uitgefaseerd
 {% for term in terms if term.get("deprecated", dict()).get("value") %}
 {{ term["iri"]["value"] }}[{{ term["prefLabel"]["value"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}
