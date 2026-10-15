@@ -188,6 +188,24 @@ def write_navs(nav):
         with (vocab / "modules" / "ROOT" / "nav.adoc").open("w") as f:
             f.write(nav)
 
+def setup_uri_redirects():
+    playbook = read_playbook(ANTORA_PLAYBOOK)
+    site_url = playbook["site"]["url"]
+    for vocab in {f for f in (BUILD_DIR / "waardelijsten").iterdir() if Path(f).is_dir()}:
+        latest_version = next(reversed(sorted(d.name for d in vocab.iterdir())))
+        with (DOCS_DIR / vocab.name / "index.html").open("w") as doc:
+            doc.write(f"""
+                <!DOCTYPE html>
+                <meta charset="utf-8">
+                <link rel="canonical" href="{site_url}/{vocab.stem}/{latest_version}/index.html">
+                <script>location="{site_url}/{vocab.name}/{latest_version}/index.html"</script>
+                <meta http-equiv="refresh" content="0; url={vocab.stem}/{latest_version}/index.html">
+                <meta name="robots" content="noindex">
+                <title>Redirect Notice</title>
+                <h1>Redirect Notice</h1>
+                <p>The page you requested has been relocated to <a href="{site_url}/{vocab.stem}/{latest_version}/index.html">{site_url}/{vocab.stem}/{latest_version}/index.html</a>.</p>
+            """)
+
 
 def build():
     prepare_build_dir()
@@ -205,6 +223,7 @@ def build():
 
     run_antora()
     relocate_artifacts()
+    setup_uri_redirects()
     (DOCS_DIR / ".nojekyll").touch()  # Disables GitHub's default Jekyll CI/CD pipeline.
 
 
