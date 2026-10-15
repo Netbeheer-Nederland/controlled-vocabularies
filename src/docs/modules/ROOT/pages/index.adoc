@@ -1,3 +1,5 @@
-= NBNL Controlled Vocabularies
+= NBNL Referentiewaardelijsten
 
-Here you find the controlled vocabularies published by Netbeheer Nederland.
+Hier vind je referentiewaardelijsten gepubliceerd door Netbeheer Nederland bedoeld om datauitwisseling in de energiesector te faciliteren.
+
+Deze waardelijsten zijn gebedoeld voor gebruik in systemen en projecten, en zijn niet gezaghebbend -- d.w.z. het zijn geen registers.

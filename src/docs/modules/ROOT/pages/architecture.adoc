@@ -1,39 +1,57 @@
-= Architecture
+= Architectuur
+:base-iri: \https://modellen.netbeheernederland.nl/waardelijsten
 
-== IRI strategy
+== Definitie
+
+Een *referentiewaardelijst* (of simpelweg _waardelijst_) is een door een autoriteit beheerde lijst van waarden die ter referentie gebruikt dienen te worden binnen een bepaalde context. Ze zijn bedoeld voor gebruik in realisatie van projecten zoals informatiesystemen en versies worden daarom vaak expliciet genummerd middels een versioneringsschema. Tot slot moeten referentiewaardelijsten niet worden verward met registers, die gezaghebbend en projectonafhankelijk zijn.
+
+Een referentiewaardelijst bestaat uit waarden.
+
+== Lifecyclemanagement
+
+Versies van referentiewaardelijsten worden expliciet genummerd volgens het versioneringsschema `MAJOR.MINOR`.
+
+NOTE: Waarden zijn niet geversioneerd. Verschillende versies van een waardelijst kunnen verschillende beschrijvingen geven van de waarden erin, maar *er bestaat niet zoiets als een versie van een waarde*.
+
+* Hoog de `MAJOR`-versie op indien waarden verwijderd zijn of aanpassingen zijn gedaan waarmee waarden van betekenis zijn veranderd.
+* Hoog anders de `MINOR`-versie op, bijv. wanneer nieuwe waarden zijn of informatie is toegevoegd, of aanpassingen zijn gedaan die geen betekenis veranderen.
+
+== Identificatie
+
+Ter identificatie van waarden, waardelijsten, waardelijstversies en representaties daarvan gebruiken we de volgende IRI-templates:
 
 [.rationale%collapsible]
 .Rationale
 ====
 ****
-* *Hash IRIs* are used because they reflect that terms cannot exist without an authoritative vocabulary in which they are described.footnote:[Containment in an authoritative vocabulary is a rigid property of terms.] Furthermore they allow for a trivial -- and frankly, desirable -- implementation of dereferenceable IRIs, namely by resolving to the web documenation representation of the vocabulary.
-* Regarding the *vocabulary and term names*, although we do recognize the maintenance benefits of using opaque names, *for the benefit of developers we have opted to go for meaningful names*.
 ****
 ====
-
-Each *controlled vocabulary* is identified by its IRI, and so are each of the terms contained in them:
 
 .IRI templates
 [cols="1,1,3"]
 |===
-2+h| Controlled vocabulary
-| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}`
-.3+| _Representation_
-h| Web documentation (HTML)
-|`\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.html`
+2+h| Referentiewaardelijst
+| `{base-iri}/\{naam}`
+
+2+h| Referentiewaardelijstversie
+| `{base-iri}/\{naam}/\{versie}`
+
+.3+| _Representatie_
+h| Webdocumentatie (HTML)
+| `{base-iri}/\{naam}/\{versie}/index.html`
 h| SKOS (Turtle)
-| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.skos.ttl`
+| `{base-iri}/\{naam}/\{versie}/skos.ttl`
 h| SHACL (Turtle)
-| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}.shacl.ttl`
-2+h| Controlled vocabulary term
-| `\https://modellen.netbeheernederland.nl/waardelijsten/\{vocabulary}#\{term}`
+| `{base-iri}/\{naam}/\{versie}/shacl.ttl`
+2+h| Waarde
+| `{base-iri}/\{naam}#\{waarde}`
 |===
 
-where:
+waarbij:
 
 [horizontal]
-`\{vocabulary}`:: name of the vocabulary; non-opaque; "kebab-case"
-`\{term}`:: name of the term; non-opaque; "UPPERCASE"
+`\{naam}`:: naam van de waardelijst; betekenisvol; "kebab-case"
+`\{waarde}`:: naam van de waarde; betekenisvol; "UPPERCASE"
 
 == Versioning strategy
 

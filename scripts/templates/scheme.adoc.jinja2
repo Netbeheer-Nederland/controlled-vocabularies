@@ -5,19 +5,16 @@
 | IRI
 | {{ scheme["iri"]["value"] }}
 
-| Version IRI
+| IRI van versie
 | {{ scheme["versionIri"]["value"] }}
 
-| Subject
-| {{ scheme["subject"]["value"] }}
-
-| Vocabulary type
-| {{ scheme["type"]["value"] }}
-
-| Version
+| Versie
 | {{ scheme["version"]["value"] }}
 
-| Artefacten
+| Onderwerp
+| {{ scheme["subject"]["value"] }}
+
+| Representaties
 a| [no-bullet]
 * {{ skos_iri }}[SKOS concept scheme (Turtle),window=read-later)]
 * {{ shacl_iri }}[SHACL shapes graph (Turtle),window=read-later)]
@@ -26,7 +23,7 @@ a| [no-bullet]
 == Waarden
 
 |===
-| Voorkeursterm | Notatie
+| Waarde | Code
 
 {% for term in terms if not term.get("deprecated", dict()).get("value") %}
 | [[{{ term["notation"]["value"] }}]]{{ term["iri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]

@@ -194,7 +194,7 @@ def setup_uri_redirects():
     for vocab in {f for f in (BUILD_DIR / "waardelijsten").iterdir() if Path(f).is_dir()}:
         latest_version = next(reversed(sorted(d.name for d in vocab.iterdir())))
         with (DOCS_DIR / vocab.name / "index.html").open("w") as doc:
-            doc.write(f"""
+            doc.write(textwrap.dedent(f"""
                 <!DOCTYPE html>
                 <meta charset="utf-8">
                 <link rel="canonical" href="{site_url}/{vocab.stem}/{latest_version}/index.html">
@@ -204,7 +204,7 @@ def setup_uri_redirects():
                 <title>Redirect Notice</title>
                 <h1>Redirect Notice</h1>
                 <p>The page you requested has been relocated to <a href="{site_url}/{vocab.stem}/{latest_version}/index.html">{site_url}/{vocab.stem}/{latest_version}/index.html</a>.</p>
-            """)
+            """).lstrip())
 
 
 def build():
