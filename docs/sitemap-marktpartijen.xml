@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen/0.2/index.html</loc>
-<lastmod>2026-10-15T11:16:04.989Z</lastmod>
+<loc>http://localhost:8000/marktpartijen/0.2/index.html</loc>
+<lastmod>2026-10-15T11:48:54.041Z</lastmod>
 </url>
 <url>
-<loc>https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen/0.1/index.html</loc>
-<lastmod>2026-10-15T11:16:04.989Z</lastmod>
+<loc>http://localhost:8000/marktpartijen/0.1/index.html</loc>
+<lastmod>2026-10-15T11:48:54.041Z</lastmod>
 </url>
 </urlset>

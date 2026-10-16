@@ -4,10 +4,10 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<{{ scheme["versionIri"]["value"] }}> a owl:Ontology , sh:ShapesGraph ;
+<{{ shacl_iri }}> a owl:Ontology , sh:ShapesGraph ;
     owl:versionInfo "{{ scheme['version']['value'] }}" ;
     rdfs:seeAlso <{{ scheme["iri"]["value"] }}> ;
-    dcterms:hasFormat <shacl_iri> .
+    dcterms:isFormatOf <{{ scheme["versionIri"]["value"] }}> .
 
 <{{ scheme["iri"]["value"] }}#{{ scheme["notation"]["value"] }}Shape> a sh:NodeShape ;
     skos:scopeNote "Users who wish to restrict properties to exclusively allow values from this code list can import this ontology and use this node shape." ;
