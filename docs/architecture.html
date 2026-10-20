@@ -104,21 +104,31 @@
 <div class="sect1">
 <h2 id="_identification"><a class="anchor" href="#_identification"></a>Identification</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Each controlled vocabulary is identified by its IRI, and so are each of the terms contained in them:</p>
-</div>
-<details class="rationale">
+<details class="rationale small">
 <summary class="title">Rationale</summary>
 <div class="content">
 <div class="sidebarblock">
 <div class="content">
-<div class="paragraph">
-<p><mark>TODO</mark>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hash IRIs</strong> are used because they reflect that terms cannot exist without an authoritative vocabulary in which they are described.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> Furthermore they allow for a trivial&#8201;&#8212;&#8201;and frankly, desirable&#8201;&#8212;&#8201;implementation of dereferenceable IRIs, namely by resolving to the web documenation representation of the vocabulary.</p>
+</li>
+<li>
+<p>Regarding the <strong>vocabulary and term names</strong>, although we do recognize the maintenance benefits of using opaque names, <strong>for the benefit of developers we have opted to go for meaningful names</strong>.</p>
+</li>
+<li>
+<p>No version numbers are encoded into the IRIs, since we choose to <a href="#_life_cycle_management">evolve</a> vocabularies.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 </details>
+<div class="paragraph">
+<p>Each controlled vocabulary is identified by its IRI, and so are each of the terms contained in them:</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. IRI templates</caption>
 <colgroup>
@@ -178,20 +188,76 @@
 <div class="sect1">
 <h2 id="_life_cycle_management"><a class="anchor" href="#_life_cycle_management"></a>Life cycle management</h2>
 <div class="sectionbody">
-<details class="rationale">
+<details class="rationale small">
 <summary class="title">Rationale</summary>
 <div class="content">
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p><mark>TODO</mark>.</p>
+<p>Maintenance is greatly simplified if version numbers can be avoided:
+* no redirection difficulties (and hacks in Antora)
+* trivial IRI dereferencing
+* simpler identities to reduce cognitive load
+* simpler to understand and maintain build logic</p>
+</div>
+<div class="paragraph">
+<p>Not using version numbers for vocabularies could cause confusing situations when data models
+which <em>do</em> have versions use them. Let me explain by means of an hypothetical situation where
+Team Semantiek models the EQ profile, based on which Liander produces data and EDSN ingests it.</p>
+</div>
+<div class="paragraph">
+<p>Suppose both EDSN and Liander have implemented their applications based on EQ 2.0. In the SHACL,
+the node shape which enumerates all values in the NBNL controlled vocabulary <em>Base voltages</em> is
+imported, and it is used to enforce the use of only those base voltages across the graph. All is
+well so far.</p>
+</div>
+<div class="paragraph">
+<p>Then, Team Semantiek releases EQ 3.0, which makes use of a new base voltage value which is added
+to the <em>Base voltages</em> vocabulary. EDSN then starts receiving these new datasets and processes
+them with their EQ 2.0 based stack, starting with a SHACL validation. Interestingly, because the
+SHACL imports the <em>Base voltages</em> SHACL, it will have knowledge of the newly added base voltage,
+and therefore deem the data valid.</p>
+</div>
+<div class="paragraph">
+<p>It is then, however, that things might break. Once the data is parsed into tables or objects,
+these are all still based on EQ 2.0, and therefore the new enumeration value for base voltage
+will not be expected. Depending on the technology and implementation, this is likely to cause
+an error.</p>
+</div>
+<div class="paragraph">
+<p>This is the only situation I&#8217;ve been able to come up with that could potentially cause issues,
+but frankly, I don&#8217;t think it warrants introducing version numbers for our vocabularies at all:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The main problem is that EDSN should never process datasets based on a different version than
+the one being agreed upon. This is a communication problem first and foremost, and second, the
+application should check the specified version number to decide whether it can process it or not.</p>
+</li>
+<li>
+<p>For that matter, the error is actually useful in signalling that something went wrong in
+communication. For comparison, had we worked with version numbers for the vocabularies in this
+hypothetical, then the EQ 2.0 SHACL would have pointed to a fixed version of the <em>Base voltages</em>
+vocabulary, causing it to deem the data invalid because of the unexpected new base voltage. So
+ultimately, your pipeline would fail earlier, which is preferable, but given how unlikely and
+troubled this scenario already is, and the fact that you will certainly get an error and nothing
+can be altered or broken in any meaningful sense, all of this does not warrant a strong case for
+introducing version numbers.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Therefore, we feel comfortable in keeping things simple for our goals of maintainbility and
+(semantic) stability and choose to evolve our vocabularies and refrain from adopting a version
+numbering scheme.</p>
 </div>
 </div>
 </div>
 </div>
 </details>
 <div class="paragraph">
-<p><strong>No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve</strong> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).</p>
+<p><strong>No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve</strong> <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -250,7 +316,10 @@
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?
+<a href="#_footnoteref_1">1</a>. Containment in an authoritative vocabulary is a rigid property of terms.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?
 </div>
 </div>
 <nav class="pagination">
