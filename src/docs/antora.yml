@@ -1,5 +1,5 @@
 name: ROOT
-title: NBNL Referentiewaardelijsten
+title: NBNL Controlled Vocabularies
 version: ~
 nav:
 - modules/ROOT/nav.adoc

@@ -1,0 +1,61 @@
+= Marktpartijen
+
+[cols="h,4"]
+|===
+| IRI
+| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen
+
+| Subject
+| https://begrippen.netbeheernederland.nl/id/hc9px
+
+| Representations
+a| [no-bullet]
+* http://localhost:8000/marktpartijen.skos.ttl[SKOS concept scheme (Turtle),window=read-later)]
+* http://localhost:8000/marktpartijen.shacl.ttl[SHACL shapes graph (Turtle),window=read-later)]
+|===
+
+== Terms
+
+|===
+| Label | Code
+
+
+| [[COTEQ]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ[*Coteq Netbeheer B.V.*]
+| `COTEQ`
+
+| [[EDSN]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN[*Energie Data Services Nederland*]
+| `EDSN`
+
+| [[ENEXIS]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS[*Enexis Netbeheer B.V.*]
+| `ENEXIS`
+
+| [[ESSENT]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT[*ESSENT*]
+| `ESSENT`
+
+| [[GASUNIE]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE[*Gasunie Transport Services B.V.*]
+| `GASUNIE`
+
+| [[LIANDER]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER[*Liander N.V.*]
+| `LIANDER`
+
+| [[NUON]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON[*NUON*]
+| `NUON`
+
+| [[RENDO]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO[*N.V. RENDO*]
+| `RENDO`
+
+| [[STEDIN]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN[*Stedin Netbeheer B.V.*]
+| `STEDIN`
+
+| [[TENNET]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET[*TenneT TSO B.V.*]
+| `TENNET`
+
+| [[WESTLAND]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND[*Westland Infra Netbeheer B.V.*]
+| `WESTLAND`
+
+|===
+
+[discrete]
+=== Deprecated
+
+https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#FAKE[Coteq Netbeheer B.V.]

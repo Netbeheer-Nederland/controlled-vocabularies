@@ -5,9 +5,6 @@
 | IRI
 | {{ scheme["iri"]["value"] }}
 
-| Version
-| {{ scheme["version"]["value"] }}
-
 {% if scheme["subject"] -%}
 | Subject
 | {{ scheme["subject"]["value"] }}
@@ -15,8 +12,8 @@
 
 | Representations
 a| [no-bullet]
-* {{ skos_iri }}[SKOS concept scheme (Turtle),window=read-later)]
-* {{ shacl_iri }}[SHACL shapes graph (Turtle),window=read-later)]
+* {{ skos_url }}[SKOS concept scheme (Turtle),window=read-later)]
+* {{ shacl_url }}[SHACL shapes graph (Turtle),window=read-later)]
 |===
 
 == Terms

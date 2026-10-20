@@ -1,1 +1,1 @@
-* xref:ROOT::architecture.adoc[]
+* xref:architecture.adoc[]

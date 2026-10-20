@@ -1,0 +1,10 @@
+= Reusing controlled terms in SHACL enumerations
+
+Each controlled vocabulary comes with a SHACL representation in which a single node shape is defined that enumerates all terms. This SHACL graph can be imported and the node shape referenced in one's own SHACL to avoid having to manually update the permitted values. This is very powerful, but should be used with caution.
+
+* When it makes sense and is safe to make use of the imported authoritative node shape.
+* When it makes sense to enumerate controlled terms yourself.
+
+== When to use the authoritative SHACL
+
+If what you are validating is 

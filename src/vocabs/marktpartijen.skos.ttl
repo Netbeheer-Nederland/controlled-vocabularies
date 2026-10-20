@@ -7,9 +7,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> a skos:ConceptScheme , owl:Ontology ;
-    owl:versionIRI <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen/0.2> ;
-    owl:versionInfo "0.2";
-    dcterms:hasFormat <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen-0.2.ttl> ;
     dcterms:subject nbnl:hc9px ;
     skos:notation "marktpartijen" ;
     dcterms:type <http://publications.europa.eu/resource/authority/asset-classification/c_5b130cc6> ;  # Authority file.

@@ -1,0 +1,80 @@
+= Architecture
+:base-iri: \https://modellen.netbeheernederland.nl/controlled-vocabularies
+
+== Definition
+
+A *controlled vocabulary* (or simply _vocabulary_) is an organized collection of terms (i.e. names, codes, etc.) under the control of a governing authority. They can be simple -- name authority files, code lists, synonym rings -- or fairly complex -- taxonomies and thesauri --, but at the core all of them aim to organize knowledge described in natural language.
+
+Terms from controlled vocabularies are commonly used by reference as enumeration values in information systems which need to restrict what values are permissible. This has several benefits, such as a standardized way to reuse terms and their semantic descriptions, and allowing non-technical domain experts to contribute to vocabularies and not have to be familiar with programming.
+
+== Identification
+
+Each controlled vocabulary is identified by its IRI, and so are each of the terms contained in them:
+
+[.rationale%collapsible]
+.Rationale
+====
+****
+#TODO#.
+****
+====
+
+.IRI templates
+[cols="1,1,3"]
+|===
+2+h| Vocabulary
+| `{base-iri}/\{vocab}`
+.3+| _Representation_
+h| Web documentation (HTML)
+| `{base-iri}/\{vocab}/\/index.html`
+h| SKOS (Turtle)
+| `{base-iri}/\{vocab}.skos.ttl`
+h| SHACL (Turtle)
+| `{base-iri}/\{vocab}.shacl.ttl`
+2+h| Term
+| `{base-iri}/\{vocab}#\{term}`
+|===
+
+where:
+
+[horizontal]
+`\{vocab}`:: vocabulary name (non-opaque in "https://en.wikipedia.org/wiki/Letter_case#Kebab_case[kebab-case]")
+`\{term}`::  term name (non-opaque in "UPPERCASE")
+
+== Life cycle management
+
+[.rationale%collapsible]
+.Rationale
+====
+****
+#TODO#.
+****
+====
+
+*No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve* footnote:[In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?]. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).
+
+[NOTE]
+--
+Each modification to the vocabulary _does_ result in a different version of it, but none of these representations are exposed through its identifying IRI and are merely accessible through the VCS. Effectively, this encodes having a single evolving identity whilst preserving historical lineage of the evolution.
+
+Furthermore, it deserves mention that terms themselves do not have versions. Different versions of a vocabulary might provide different descriptions of terms contained in it, but *there is no such thing as a "version of a term"*.
+--
+
+.What changes can and can't I make?
+****
+For guidance, the following table may be referenced to see what actions are allowed or prohibited when evolving the vocabulary. It is not normative nor does it pretend to be exhaustive.
+
+.Rules for evolving
+|===
+| Allowed | Prohibited
+
+| Adding knowledge, either about existing terms (e.g. new notes or lifecycle status updates) or including the introduction of new ones
+| Removing terms, their definition and preferred labels
+
+| Removing knowledge that is not definitions and preferred labels (e.g. notes and alignments)
+| Changing the preferred label of a term
+
+| Improving a definition whilst retaining backward compatibility
+| Changing a definition such that the meaning of term changes incompatibly (e.g. when contradictions arise or the semantic scope has changed completely)
+|===
+****

@@ -1,4 +1,4 @@
-@prefix : <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen#> .
+@prefix : <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix nbnl: <https://begrippen.netbeheernederland.nl/id/> .
@@ -6,10 +6,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> a skos:ConceptScheme , owl:Ontology ;
-    owl:versionIRI <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen/0.2> ;
-    owl:versionInfo "0.2";
-    dcterms:hasFormat <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen-0.2.ttl> ;
+<https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> a skos:ConceptScheme , owl:Ontology ;
     dcterms:subject nbnl:hc9px ;
     skos:notation "marktpartijen" ;
     dcterms:type <http://publications.europa.eu/resource/authority/asset-classification/c_5b130cc6> ;  # Authority file.
@@ -20,21 +17,21 @@
     foaf:homepage <https://www.coteqnetbeheer.nl> ;
     skos:notation "COTEQ" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :EDSN a skos:Concept ;
     skos:prefLabel "Energie Data Services Nederland" ;
     foaf:homepage <https://www.edsn.nl> ;
     skos:notation "EDSN" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :ENEXIS a skos:Concept ;
     skos:prefLabel "Enexis Netbeheer B.V." ;
     foaf:homepage <https://www.enexis.nl> ;
     skos:notation "ENEXIS" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :GASUNIE a skos:Concept ;
     skos:prefLabel "Gasunie Transport Services B.V." ;
@@ -55,42 +52,42 @@
     foaf:homepage <https://www.rendonetwerken.nl> ;
     skos:notation "RENDO" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :STEDIN a skos:Concept ;
     skos:prefLabel "Stedin Netbeheer B.V." ;
     foaf:homepage <https://www.stedin.net> ;
     skos:notation "STEDIN" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :TENNET a skos:Concept ;
     skos:prefLabel "TenneT TSO B.V." ;
     foaf:homepage <https://www.tennet.eu> ;
     skos:notation "TENNET" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :WESTLAND a skos:Concept ;
     skos:prefLabel "Westland Infra Netbeheer B.V." ;
     foaf:homepage <https://westlandinfra.nl> ;
     skos:notation "WESTLAND" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :NUON a skos:Concept ;
     skos:prefLabel "NUON" ;
     foaf:homepage <https://nuon.nl> ;
     skos:notation "NUON" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 :ESSENT a skos:Concept ;
     skos:prefLabel "ESSENT" ;
     foaf:homepage <https://essent.nl> ;
     skos:notation "ESSENT" ;
     skos:topConceptOf : ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .
 
 # DEPRECATED
 
@@ -98,4 +95,4 @@
     skos:prefLabel "Coteq Netbeheer B.V." ;
     skos:notation "COTEQ" ;
     owl:deprecated "true"^^xsd:boolean ;
-    skos:inScheme <https://modellen.netbeheernederland.nl/waardelijsten/marktpartijen> .
+    skos:inScheme <https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen> .

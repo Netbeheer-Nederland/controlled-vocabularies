@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<sitemap>
-<loc>http://localhost:8000/sitemap-marktpartijen.xml</loc>
-</sitemap>
-<sitemap>
-<loc>http://localhost:8000/sitemap-ROOT.xml</loc>
-</sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:8000/architecture.html</loc>
+<lastmod>2026-10-20T15:37:33.872Z</lastmod>
+</url>
+<url>
+<loc>http://localhost:8000/index.html</loc>
+<lastmod>2026-10-20T15:37:33.872Z</lastmod>
+</url>
+<url>
+<loc>http://localhost:8000/marktpartijen.html</loc>
+<lastmod>2026-10-20T15:37:33.872Z</lastmod>
+</url>
+<url>
+<loc>http://localhost:8000/shacl.html</loc>
+<lastmod>2026-10-20T15:37:33.872Z</lastmod>
+</url>
+</urlset>

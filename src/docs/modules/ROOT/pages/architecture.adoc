@@ -53,9 +53,12 @@ where:
 
 *No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve* footnote:[In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?]. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).
 
-NOTE: Each modification to the vocabulary _does_ result in a different version of it, but none of these representations are exposed through its identifying IRI and are merely accessible through the VCS. Effectively, this encodes having a single evolving identity whilst preserving historical lineage of the evolution.
+[NOTE]
+--
+Each modification to the vocabulary _does_ result in a different version of it, but none of these representations are exposed through its identifying IRI and are merely accessible through the VCS. Effectively, this encodes having a single evolving identity whilst preserving historical lineage of the evolution.
 
 Furthermore, it deserves mention that terms themselves do not have versions. Different versions of a vocabulary might provide different descriptions of terms contained in it, but *there is no such thing as a "version of a term"*.
+--
 
 .What changes can and can't I make?
 ****
