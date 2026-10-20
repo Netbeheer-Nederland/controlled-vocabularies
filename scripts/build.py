@@ -13,7 +13,7 @@ from pyoxigraph import Store, parse, RdfFormat, QueryResultsFormat
 
 # Paths: src/
 DOCS_SRC = Path("src") / "docs"
-VOCABS_SRC = Path("src") / "waardelijsten"
+VOCABS_SRC = Path("src") / "vocabs"
 
 # Paths: build/
 BUILD_DIR = Path("build")
@@ -87,13 +87,6 @@ def read_vocabulary(src_file):
     return scheme, terms
 
 
-def write_nav():
-    with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("a") as f:
-        f.write(f"* Waardelijsten\n")
-        for vocab in VOCABS_SRC.glob("*.ttl"):
-            f.write(f"** xref::{vocab.with_suffix('.adoc').name}[]")
-
-
 def prepare_build_dir():
     if BUILD_DIR.exists():
         shutil.rmtree(BUILD_DIR)
@@ -109,7 +102,7 @@ def read_playbook(playbook_file):
 
 def build_vocabulary(src_dir):
     vocab_name = src_dir.stem
-    vocabulary_dir = BUILD_DIR / "waardelijsten" / vocab_name
+    vocabulary_dir = BUILD_DIR / "vocabs" / vocab_name
     vocabulary_dir.mkdir(parents=True)
 
     playbook = read_playbook(ANTORA_PLAYBOOK)
@@ -184,14 +177,14 @@ def write_navs(nav):
     with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("wt") as f:
         f.write(nav)
 
-    for vocab in {f for f in (BUILD_DIR / "waardelijsten").glob("*/*") if Path(f).is_dir()}:
+    for vocab in {f for f in (BUILD_DIR / "vocabs").glob("*/*") if Path(f).is_dir()}:
         with (vocab / "modules" / "ROOT" / "nav.adoc").open("w") as f:
             f.write(nav)
 
 def setup_uri_redirects():
     playbook = read_playbook(ANTORA_PLAYBOOK)
     site_url = playbook["site"]["url"]
-    for vocab in {f for f in (BUILD_DIR / "waardelijsten").iterdir() if Path(f).is_dir()}:
+    for vocab in {f for f in (BUILD_DIR / "vocabs").iterdir() if Path(f).is_dir()}:
         latest_version = next(reversed(sorted(d.name for d in vocab.iterdir())))
         with (DOCS_DIR / vocab.name / "index.html").open("w") as doc:
             doc.write(textwrap.dedent(f"""
@@ -212,7 +205,7 @@ def build():
     build_antora_root_component_version()
 
     nav = (ANTORA_ROOT_MODULE_DIR / "nav.adoc").read_text() + "\n"
-    nav += "* Waardelijsten\n"
+    nav += "* Vocabularies\n"
 
     for vocab_src in {f for f in VOCABS_SRC.iterdir() if Path(f).is_dir()}:
         build_vocabulary(vocab_src)

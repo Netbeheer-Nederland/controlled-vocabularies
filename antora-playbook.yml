@@ -1,10 +1,10 @@
 site:
-  url: https://modellen.netbeheernederland.nl/waardelijsten
+  url: https://modellen.netbeheernederland.nl/controlled-vocbularies
   start_page: ROOT::index.adoc
 content:
   sources:
     - url: ''
-      start_paths: [build/docs, build/waardelijsten/*/*]
+      start_paths: [build/docs, build/vocabs/*/*]
 asciidoc:
   attributes:
     page-pagination: ''

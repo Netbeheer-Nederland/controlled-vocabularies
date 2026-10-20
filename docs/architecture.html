@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Architectuur</title>
+    <title>Architecture</title>
     <link rel="canonical" href="http://localhost:8000/architecture.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="marktpartijen/0.2/index.html">
@@ -66,7 +66,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="architecture.html">Architectuur</a>
+    <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,7 +91,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">NBNL Referentiewaardelijsten</a></li>
-    <li><a href="architecture.html">Architectuur</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
   </ul>
 </nav>
 </div>
@@ -100,53 +100,23 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Architectuur</h1>
+<h1 class="page">Architecture</h1>
 <div class="sect1">
-<h2 id="_definitie"><a class="anchor" href="#_definitie"></a>Definitie</h2>
+<h2 id="_definition"><a class="anchor" href="#_definition"></a>Definition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Een <strong>referentiewaardelijst</strong> (of simpelweg <em>waardelijst</em>) is een door een autoriteit beheerde lijst van waarden die ter referentie gebruikt dienen te worden binnen een bepaalde context. Ze zijn bedoeld voor gebruik in realisatie van projecten zoals informatiesystemen en versies worden daarom vaak expliciet genummerd middels een versioneringsschema. Tot slot moeten referentiewaardelijsten niet worden verward met registers, die gezaghebbend en projectonafhankelijk zijn.</p>
+<p>A <strong>controlled vocabulary</strong> (or simply <em>vocabulary</em>) is an organized collection of terms (i.e. names, codes, etc.) under the control of a governing authority. They can be simple&#8201;&#8212;&#8201;name authority files, code lists, synonym rings&#8201;&#8212;&#8201;or fairly complex&#8201;&#8212;&#8201;taxonomies and thesauri --, but at the core all of them aim to organize knowledge described in natural language.</p>
 </div>
 <div class="paragraph">
-<p>Een referentiewaardelijst bestaat uit waarden.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_lifecyclemanagement"><a class="anchor" href="#_lifecyclemanagement"></a>Lifecyclemanagement</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Versies van referentiewaardelijsten worden expliciet genummerd volgens het versioneringsschema <code>MAJOR.MINOR</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Waarden zijn niet geversioneerd. Verschillende versies van een waardelijst kunnen verschillende beschrijvingen geven van de waarden erin, maar <strong>er bestaat niet zoiets als een versie van een waarde</strong>.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Hoog de <code>MAJOR</code>-versie op indien waarden verwijderd zijn of aanpassingen zijn gedaan waarmee waarden van betekenis zijn veranderd.</p>
-</li>
-<li>
-<p>Hoog anders de <code>MINOR</code>-versie op, bijv. wanneer nieuwe waarden zijn of informatie is toegevoegd, of aanpassingen zijn gedaan die geen betekenis veranderen.</p>
-</li>
-</ul>
+<p>Terms from controlled vocabularies are commonly used by reference as enumeration values in information systems which need to restrict what values are permissible. This has several benefits, such as a standardized way to reuse terms and their semantic descriptions, and allowing non-technical domain experts to contribute to vocabularies and not have to be familiar with programming.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_identificatie"><a class="anchor" href="#_identificatie"></a>Identificatie</h2>
+<h2 id="_identification"><a class="anchor" href="#_identification"></a>Identification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ter identificatie van waarden, waardelijsten, waardelijstversies en representaties daarvan gebruiken we de volgende IRI-templates:</p>
+<p>Each controlled vocabulary is identified by its IRI, and so are each of the terms contained in them:</p>
 </div>
 <details class="rationale">
 <summary class="title">Rationale</summary>
@@ -167,51 +137,47 @@ Waarden zijn niet geversioneerd. Verschillende versies van een waardelijst kunne
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Referentiewaardelijst</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}</code></p></td>
+<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Vocabulary</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/controlled-vocabularies/{vocab}</code></p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Referentiewaardelijstversie</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}/{versie}</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><em>Representatie</em></p></td>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Webdocumentatie (HTML)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}/{versie}/index.html</code></p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><em>Representation</em></p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Web documentation (HTML)</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/controlled-vocabularies/{vocab}/\/index.html</code></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">SKOS (Turtle)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}/{versie}/skos.ttl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/controlled-vocabularies/{vocab}.skos.ttl</code></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">SHACL (Turtle)</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}/{versie}/shacl.ttl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/controlled-vocabularies/{vocab}.shacl.ttl</code></p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Waarde</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/waardelijsten/{naam}#{waarde}</code></p></td>
+<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Term</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>https://modellen.netbeheernederland.nl/controlled-vocabularies/{vocab}#{term}</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>waarbij:</p>
+<p>where:</p>
 </div>
 <div class="hdlist">
 <table>
 <tr>
 <td class="hdlist1">
-<code>{naam}</code>
+<code>{vocab}</code>
 </td>
 <td class="hdlist2">
-<p>naam van de waardelijst; betekenisvol; "kebab-case"</p>
+<p>vocabulary name (non-opaque in "<a href="https://en.wikipedia.org/wiki/Letter_case#Kebab_case">kebab-case</a>")</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-<code>{waarde}</code>
+<code>{term}</code>
 </td>
 <td class="hdlist2">
-<p>naam van de waarde; betekenisvol; "UPPERCASE"</p>
+<p>term name (non-opaque in "UPPERCASE")</p>
 </td>
 </tr>
 </table>
@@ -219,73 +185,10 @@ Waarden zijn niet geversioneerd. Verschillende versies van een waardelijst kunne
 </div>
 </div>
 <div class="sect1">
-<h2 id="_versioning_strategy"><a class="anchor" href="#_versioning_strategy"></a>Versioning strategy</h2>
+<h2 id="_life_cycle_management"><a class="anchor" href="#_life_cycle_management"></a>Life cycle management</h2>
 <div class="sectionbody">
-<details class="rationale">
-<summary class="title">Rationale</summary>
-<div class="content">
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
-<p><mark>TODO</mark>: This should be moved to another place.</p>
-</div>
-<div class="paragraph">
-<p><mark>TODO</mark>: This still doesn&#8217;t sit right with me. <strong>The addition of a new term corresponds to functional requirements and demands from the team.</strong> This has to lead to a new data model version, yet no bit would change because it refers to the same external node shape. What do we think of this? On the other hand, just because a new term is allowed does not mean it makes sense to use it here. If it should be prohibited to be used here, then the data model must not use the external node shape but create its own node shape that validates the valid subset of terms for this use case.</p>
-</div>
-<div class="paragraph">
-<p>Suppose the data integration team has a versioned SHACL data model. They decide they want to make use of the SHACL node shape attached with the controlled vocabulary, so that they don&#8217;t have to manually maintain the enumeration. Of course, the controlled vocabulary is not static but evolves. This dynamicity infects the otherwise static version of the team&#8217;s data model, because a part of their model can now change outside of their control. The question is if this is really an issue. Let&#8217;s explore.</p>
-</div>
-<div class="paragraph">
-<p>Terms are never removed, only added, so the only possible changes to the node shape that could occur is the addition of new terms. For things to break on the end of the data integration team, the following sequence of events then needs to occur:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A new term must be added to the controlled vocabulary.</p>
-</li>
-<li>
-<p>One of the data producers adds data that uses this new term.</p>
-</li>
-<li>
-<p>Despite using an older version of the SHACL validation will succeed, despite using
-the integration team uses software to further ETL the data, and this software does not permit extraneous values <em>and</em> has not yet added the new term to the enumeration in the data model.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Only in this scenario will there be an error in the data integration pipeline. Note furthermore:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If a new term is added, typically users are informed about this.</p>
-</li>
-<li>
-<p>Adding data which uses the new term does not come out of the blue. Again, communication, collaboration and planning goes into this, meaning all parties involved are likely in the know.</p>
-</li>
-<li>
-<p>Even if an error occurs, adding the newly permitted term to the enumeration in the data model is trivial.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Interestingly, older and newer versions of the SHACL which import the node shape from the controlled vocabulary will behave equally, namely both import the up-to-date list of terms.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-</details>
-<div class="paragraph">
-<p><strong>No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintenable, controlled vocabularies will simply evolve</strong> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition, and (if applicable) the old term can be deprecated. Terms and their definitions are never deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).</p>
+<p><strong>No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve</strong> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -302,16 +205,11 @@ Each modification to the vocabulary <em>does</em> result in a different version 
 <div class="paragraph">
 <p>Furthermore, it deserves mention that terms themselves do not have versions. Different versions of a vocabulary might provide different descriptions of terms contained in it, but <strong>there is no such thing as a "version of a term"</strong>.</p>
 </div>
-<div class="sect2">
-<h3 id="_evolution_rules"><a class="anchor" href="#_evolution_rules"></a>Evolution rules</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What changes can and can&#8217;t I make?</div>
 <div class="paragraph">
-<p>The vocabulary evolves according to a set of rules which ensures the it remains semantically consistent and FAIR. Identities must remain stable, i.e. modifications must not lead to terms or vocabularies obtaining a meaning that is no longer compatible with earlier ones.</p>
-</div>
-<div class="paragraph">
-<p>To this end, the following set of rules must be followed:</p>
-</div>
-<div class="paragraph">
-<p><mark>TODO</mark>: Finish this table.</p>
+<p>For guidance, the following table may be referenced to see what actions are allowed or prohibited when evolving the vocabulary. It is not normative nor does it pretend to be exhaustive.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Rules for evolving</caption>
@@ -340,6 +238,7 @@ Each modification to the vocabulary <em>does</em> result in a different version 
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>

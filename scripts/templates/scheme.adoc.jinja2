@@ -5,25 +5,24 @@
 | IRI
 | {{ scheme["iri"]["value"] }}
 
-| IRI van versie
-| {{ scheme["versionIri"]["value"] }}
-
-| Versie
+| Version
 | {{ scheme["version"]["value"] }}
 
-| Onderwerp
+{% if scheme["subject"] -%}
+| Subject
 | {{ scheme["subject"]["value"] }}
+{%- endif %}
 
-| Representaties
+| Representations
 a| [no-bullet]
 * {{ skos_iri }}[SKOS concept scheme (Turtle),window=read-later)]
 * {{ shacl_iri }}[SHACL shapes graph (Turtle),window=read-later)]
 |===
 
-== Waarden
+== Terms
 
 |===
-| Waarde | Code
+| Label | Code
 
 {% for term in terms if not term.get("deprecated", dict()).get("value") %}
 | [[{{ term["notation"]["value"] }}]]{{ term["iri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]
@@ -32,7 +31,7 @@ a| [no-bullet]
 |===
 
 [discrete]
-=== Uitgefaseerd
+=== Deprecated
 {% for term in terms if term.get("deprecated", dict()).get("value") %}
 {{ term["iri"]["value"] }}[{{ term["prefLabel"]["value"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

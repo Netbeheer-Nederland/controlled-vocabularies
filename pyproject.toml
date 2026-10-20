@@ -1,7 +1,7 @@
 [project]
-name = "nbnl-waardelijsten"
+name = "controlled-vocabularies"
 version = "1.0"
-description = "Waardelijsten beheerd door Netbeheer Nederland."
+description = "Controlled vocabularies published and maintained by Netbeheer Nederland."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

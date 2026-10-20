@@ -1,105 +1,65 @@
-= Architectuur
-:base-iri: \https://modellen.netbeheernederland.nl/waardelijsten
+= Architecture
+:base-iri: \https://modellen.netbeheernederland.nl/controlled-vocabularies
 
-== Definitie
+== Definition
 
-Een *referentiewaardelijst* (of simpelweg _waardelijst_) is een door een autoriteit beheerde lijst van waarden die ter referentie gebruikt dienen te worden binnen een bepaalde context. Ze zijn bedoeld voor gebruik in realisatie van projecten zoals informatiesystemen en versies worden daarom vaak expliciet genummerd middels een versioneringsschema. Tot slot moeten referentiewaardelijsten niet worden verward met registers, die gezaghebbend en projectonafhankelijk zijn.
+A *controlled vocabulary* (or simply _vocabulary_) is an organized collection of terms (i.e. names, codes, etc.) under the control of a governing authority. They can be simple -- name authority files, code lists, synonym rings -- or fairly complex -- taxonomies and thesauri --, but at the core all of them aim to organize knowledge described in natural language.
 
-Een referentiewaardelijst bestaat uit waarden.
+Terms from controlled vocabularies are commonly used by reference as enumeration values in information systems which need to restrict what values are permissible. This has several benefits, such as a standardized way to reuse terms and their semantic descriptions, and allowing non-technical domain experts to contribute to vocabularies and not have to be familiar with programming.
 
-== Lifecyclemanagement
+== Identification
 
-Versies van referentiewaardelijsten worden expliciet genummerd volgens het versioneringsschema `MAJOR.MINOR`.
-
-NOTE: Waarden zijn niet geversioneerd. Verschillende versies van een waardelijst kunnen verschillende beschrijvingen geven van de waarden erin, maar *er bestaat niet zoiets als een versie van een waarde*.
-
-* Hoog de `MAJOR`-versie op indien waarden verwijderd zijn of aanpassingen zijn gedaan waarmee waarden van betekenis zijn veranderd.
-* Hoog anders de `MINOR`-versie op, bijv. wanneer nieuwe waarden zijn of informatie is toegevoegd, of aanpassingen zijn gedaan die geen betekenis veranderen.
-
-== Identificatie
-
-Ter identificatie van waarden, waardelijsten, waardelijstversies en representaties daarvan gebruiken we de volgende IRI-templates:
+Each controlled vocabulary is identified by its IRI, and so are each of the terms contained in them:
 
 [.rationale%collapsible]
 .Rationale
 ====
 ****
+#TODO#.
 ****
 ====
 
 .IRI templates
 [cols="1,1,3"]
 |===
-2+h| Referentiewaardelijst
-| `{base-iri}/\{naam}`
-
-2+h| Referentiewaardelijstversie
-| `{base-iri}/\{naam}/\{versie}`
-
-.3+| _Representatie_
-h| Webdocumentatie (HTML)
-| `{base-iri}/\{naam}/\{versie}/index.html`
+2+h| Vocabulary
+| `{base-iri}/\{vocab}`
+.3+| _Representation_
+h| Web documentation (HTML)
+| `{base-iri}/\{vocab}/\/index.html`
 h| SKOS (Turtle)
-| `{base-iri}/\{naam}/\{versie}/skos.ttl`
+| `{base-iri}/\{vocab}.skos.ttl`
 h| SHACL (Turtle)
-| `{base-iri}/\{naam}/\{versie}/shacl.ttl`
-2+h| Waarde
-| `{base-iri}/\{naam}#\{waarde}`
+| `{base-iri}/\{vocab}.shacl.ttl`
+2+h| Term
+| `{base-iri}/\{vocab}#\{term}`
 |===
 
-waarbij:
+where:
 
 [horizontal]
-`\{naam}`:: naam van de waardelijst; betekenisvol; "kebab-case"
-`\{waarde}`:: naam van de waarde; betekenisvol; "UPPERCASE"
+`\{vocab}`:: vocabulary name (non-opaque in "https://en.wikipedia.org/wiki/Letter_case#Kebab_case[kebab-case]")
+`\{term}`::  term name (non-opaque in "UPPERCASE")
 
-== Versioning strategy
+== Life cycle management
 
 [.rationale%collapsible]
 .Rationale
 ====
 ****
-
-#TODO#: This should be moved to another place.
-
-#TODO#: This still doesn't sit right with me. *The addition of a new term corresponds to functional requirements and demands from the team.* This has to lead to a new data model version, yet no bit would change because it refers to the same external node shape. What do we think of this? On the other hand, just because a new term is allowed does not mean it makes sense to use it here. If it should be prohibited to be used here, then the data model must not use the external node shape but create its own node shape that validates the valid subset of terms for this use case.
-
-// Let's say you have a data producer (P), a data integration team (I), and a data modeling team (M). M creates a data model in SHACL that P and I use to make sure data conforms to the agreed upon shape.
-
-Suppose the data integration team has a versioned SHACL data model. They decide they want to make use of the SHACL node shape attached with the controlled vocabulary, so that they don't have to manually maintain the enumeration. Of course, the controlled vocabulary is not static but evolves. This dynamicity infects the otherwise static version of the team's data model, because a part of their model can now change outside of their control. The question is if this is really an issue. Let's explore.
-
-Terms are never removed, only added, so the only possible changes to the node shape that could occur is the addition of new terms. For things to break on the end of the data integration team, the following sequence of events then needs to occur:
-
-. A new term must be added to the controlled vocabulary.
-. One of the data producers adds data that uses this new term.
-. Despite using an older version of the SHACL validation will succeed, despite using 
-the integration team uses software to further ETL the data, and this software does not permit extraneous values _and_ has not yet added the new term to the enumeration in the data model.
-
-Only in this scenario will there be an error in the data integration pipeline. Note furthermore:
-
-* If a new term is added, typically users are informed about this.
-* Adding data which uses the new term does not come out of the blue. Again, communication, collaboration and planning goes into this, meaning all parties involved are likely in the know.
-* Even if an error occurs, adding the newly permitted term to the enumeration in the data model is trivial.
-
-NOTE: Interestingly, older and newer versions of the SHACL which import the node shape from the controlled vocabulary will behave equally, namely both import the up-to-date list of terms.
-
+#TODO#.
 ****
 ====
 
-*No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintenable, controlled vocabularies will simply evolve* footnote:[In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?]. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition, and (if applicable) the old term can be deprecated. Terms and their definitions are never deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).
+*No release cycle or version number scheme will be used. Instead, in order to keep things simple, predictable and maintainable, controlled vocabularies will simply evolve* footnote:[In particular this avoids complicated scenarios with term deprecation. Assuming you favor stable term IRIs which mention no version number, what should these dereference to if in the latest version the term is deprecated?]. New knowledge can always be added, including the introduction of new terms, but changes which alter the meaning or semantic scope of a term or the vocabulary are prohibited. In such cases a new term must be created with its own definition which may be stated to supersede the old term, and (if applicable) the old term can be deprecated. Terms and their definitions may also never be deleted. This way, any reference to a term or vocabulary will remain valid and accessible indefinitely (FAIR principles F1, A1 and A2).
 
 NOTE: Each modification to the vocabulary _does_ result in a different version of it, but none of these representations are exposed through its identifying IRI and are merely accessible through the VCS. Effectively, this encodes having a single evolving identity whilst preserving historical lineage of the evolution.
 
 Furthermore, it deserves mention that terms themselves do not have versions. Different versions of a vocabulary might provide different descriptions of terms contained in it, but *there is no such thing as a "version of a term"*.
 
-=== Evolution rules
-
-The vocabulary evolves according to a set of rules which ensures the it remains semantically consistent and FAIR. Identities must remain stable, i.e. modifications must not lead to terms or vocabularies obtaining a meaning that is no longer compatible with earlier ones.
-
-To this end, the following set of rules must be followed:
-
-
-#TODO#: Finish this table.
+.What changes can and can't I make?
+****
+For guidance, the following table may be referenced to see what actions are allowed or prohibited when evolving the vocabulary. It is not normative nor does it pretend to be exhaustive.
 
 .Rules for evolving
 |===
@@ -114,69 +74,4 @@ To this end, the following set of rules must be followed:
 | Improving a definition whilst retaining backward compatibility
 | Changing a definition such that the meaning of term changes incompatibly (e.g. when contradictions arise or the semantic scope has changed completely)
 |===
-
-
-
-////
-.Why not use a versioning numbering scheme?
 ****
-We could have chosen to number the versions of the vocabulary using a standard such
-as SemVer. Why didn't we?
-
-Let's look at the potential benefits SemVer could have brought us:
-
-. You could safely delete terms instead of having to keep them around in a deprecated state.
-. Developers who use the vocabulary could use a specific version so that they're guaranteed
-the referenced vocabulary does not change.
-
-Let's start with (1). Suppose in version 1.0 we there is a term _red_, which gets deleted in
-version 2.0. However, IRIs should never break, so the IRI for the term _red_ should ideally
-still be dereferenceable. Now, either the term IRI contains the vocabulary's version number,
-which is a bad idea. This means each term has an IRI for each vocabulary version, i.e. it
-results in many terms with differnt IRIs but the same meaning. That's far from ideal. Moreover,
-the version number in the IRI might suggest to humans that the term itself is versioned.
-So, let's say the term IRI does not contain a version number. In this case, dereferencing gets
-complicated. If a hash IRI strategy is used, terms always dereference the latest vocabulary
-document, so that doesn't work. If a 303-redirect strategy is used, though, the server should
-be aware from what version each deprecated term was deprecated in order to perform a sensible
-redirect. This leads to very brittle and complicated architecture. So, clearly, removing terms
-is never a good idea, even if you were to use a numbering scheme.
-
-Then, let's address (2). First of all, in the vast majority of cases, developers will developer
-their own data models and enumerations. If at some point in time they took the terms from a
-controlled vocabulary ("copy by value"), evolving the vocabulary does not affect this. The one
-exception is when developers use SHACL and choose to make use of the authoritative SHACL which
-accompanies the vocabulary, i.e. they import and use the node shape that enumerates all the terms.
-In this scenarion, whenever the vocabulary evolves, the SHACL shape might too. Most interestingly,
-say a new term has been added. Automatically, the developer's SHACL will include that term as a
-valid value when validating. Although it's nice from a maintenance point-of-view, can we be sure
-this breaks nothing on the application end? First of all, for this risk to even be relevant, a
-dataset would have to contain this new enumeration value, which oftentimes won't be the case.
-Then, when the RDF data is deemed valid, it could be parsed in some programming language. It is
-very common for data structures to be closed, meaning that if the enumeration contains an unknown
-value, this leads to an error. This, however, is precisely the point where it is the
-responsibility of the developer to ensure the enumeration is parsed only to the extent where it can
-be handled. For example, the parsing logic could filter extraneous values from the RDF prior to
-creating the data structures. Of course, the developer can reconsider and choose to implement their
-own SHACL node shape where only those terms -- using the authoritative IRIs! -- are enumerated that
-are currently expected.
-
-On a final note, RDF and SHACL are typically used in the context of data exchange and integration
-from external sources. This means there's fewer assumptions you can make about the knowledge of
-others. Enabling re-use of vocabularies and other agent's data is a great good, but it means we have
-to accept we don't always receive what we are familiar with. Openness and processing of (sometimes)
-partial information is wise at any rate here.
-****
-
-
-
-During its lifecycle, the controlled vocabulary will evolve from version to version,
-but at no point will a version numbering scheme -- e.g. SemVer -- be used to aid
-humans in distinguishing versions. Although adopting such as versioning strategy can
-be useful in projects where changes are complex or can easily break things, for
-maintaining a vocabulary such as this one the simplicity of the evolution-based
-strategy is superior. Furthermore, 
-
-Each version of the controlled vocabulary will however record the unique identifier
-which tracks it in the VCS.
-////

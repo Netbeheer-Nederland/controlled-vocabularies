@@ -4,7 +4,7 @@ site:
 content:
   sources:
     - url: ''
-      start_paths: [build/docs, build/waardelijsten/*/*]
+      start_paths: [build/docs, build/vocabs/*/*]
 asciidoc:
   attributes:
     page-pagination: ''
