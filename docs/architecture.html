@@ -194,11 +194,23 @@
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Maintenance is greatly simplified if version numbers can be avoided:
-* no redirection difficulties (and hacks in Antora)
-* trivial IRI dereferencing
-* simpler identities to reduce cognitive load
-* simpler to understand and maintain build logic</p>
+<p>Maintenance is greatly simplified if version numbers can be avoided:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>no redirection difficulties (and hacks in Antora)</p>
+</li>
+<li>
+<p>trivial IRI dereferencing</p>
+</li>
+<li>
+<p>simpler identities to reduce cognitive load</p>
+</li>
+<li>
+<p>simpler to understand and maintain build logic</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Not using version numbers for vocabularies could cause confusing situations when data models
@@ -213,10 +225,11 @@ well so far.</p>
 </div>
 <div class="paragraph">
 <p>Then, Team Semantiek releases EQ 3.0, which makes use of a new base voltage value which is added
-to the <em>Base voltages</em> vocabulary. EDSN then starts receiving these new datasets and processes
-them with their EQ 2.0 based stack, starting with a SHACL validation. Interestingly, because the
-SHACL imports the <em>Base voltages</em> SHACL, it will have knowledge of the newly added base voltage,
-and therefore deem the data valid.</p>
+to the <em>Base voltages</em> vocabulary. Liander is ahead of the curve and has quickly implemented this
+version. EDSN then starts receiving datasets based on this new 3.0 version, and processes them
+with their EQ 2.0 based stack, starting with a SHACL validation. Interestingly, because the
+SHACL imports the <em>Base voltages</em> SHACL, it will have knowledge of the newly added base
+voltage, and therefore deem the data valid.</p>
 </div>
 <div class="paragraph">
 <p>It is then, however, that things might break. Once the data is parsed into tables or objects,
