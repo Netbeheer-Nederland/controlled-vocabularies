@@ -22,3 +22,20 @@ documentation site.
 
 > [!note]
 > The intermediate built files which Antora takes as input can be found in `built`. This may be useful when debugging.
+
+## Serving locally
+
+> [!caution]
+> Make sure you use the port specified in the Antora playbook.
+
+Using Node.js:
+
+```
+$ npx http-serve -p 8000 docs
+```
+
+Using Python:
+
+```
+$ python -m http.server 8000 -d docs
+```
