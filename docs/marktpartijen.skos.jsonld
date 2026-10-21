@@ -4,9 +4,9 @@
     "foaf": "http://xmlns.com/foaf/0.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "owl": "http://www.w3.org/2002/07/owl",
+    "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "@vocab": "http://www.w3.org/2004/02/skos/core#",
-    "prefLabel": "skos:prefLabel",
     "homepage": {
       "@id": "foaf:homepage",
       "@type": "xsd:anyURI"
@@ -20,7 +20,30 @@
       "@type": "@id"
     },
     "type": "dcterms:type",
-    "title": "dcterms:title",
+    "title": {
+      "@id": "dcterms:title",
+      "@container": "@language"
+    },
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "altLabel": {
+      "@id": "skos:altLabel",
+      "@container": "@language"
+    },
+    "scopeNote": {
+      "@id": "skos:scopeNote",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "description": {
+      "@id": "dcterms:description",
+      "@container": "@language"
+    },
     "notation": {
       "@id": "skos:notation",
       "@type": "xsd:string"
@@ -29,8 +52,8 @@
       "@id": "dcterms:source",
       "@type": "xsd:anyURI"
     },
-    "generatedBy": {
-      "@id": "dcterms:generatedBy",
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
       "@type": "xsd:anyURI"
     },
     "inScheme": {
@@ -47,11 +70,14 @@
     "skos:ConceptScheme",
     "owl:Ontology"
   ],
-  "source": "https://github.com/Netbeheer-Nederland/blob/864a95aad9a011b87e0439cf1523f48aa068fc4c/marktpartijen.skos.yml",
-  "generatedBy": "https://github.com/Netbeheer-Nederland/blob/864a95aad9a011b87e0439cf1523f48aa068fc4c/scripts/build.py",
+  "source": "https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/ff8f252170719f20da9653620f827cfe28634524/src/vocabs/marktpartijen.skos.yml",
+  "generatedBy": "https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/ff8f252170719f20da9653620f827cfe28634524/scripts/build.py",
   "notation": "marktpartijen",
   "subject": "https://begrippen.netbeheernederland.nl/id/hc9px",
-  "title": "Marktpartijen",
+  "title": {
+    "nl": "Marktpartijen",
+    "en": "Market Parties"
+  },
   "type": "http://publications.europa.eu/resource/authority/asset-classification/c_5b130cc6",
   "@graph": [
     {

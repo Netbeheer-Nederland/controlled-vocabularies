@@ -1,4 +1,5 @@
-= Marktpartijen
+// 
+= Market Parties
 
 [cols="h,4"]
 |===
@@ -9,7 +10,7 @@
 | https://begrippen.netbeheernederland.nl/id/hc9px
 
 | Source
-| https://github.com/Netbeheer-Nederland/blob/864a95aad9a011b87e0439cf1523f48aa068fc4c/marktpartijen.skos.yml
+| https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/ff8f252170719f20da9653620f827cfe28634524/src/vocabs/marktpartijen.skos.yml
 
 | Representations
 a| [no-bullet]

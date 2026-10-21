@@ -1,0 +1,9 @@
+{% macro get_lang_val(val, lang) -%}
+    {%- if not val -%}
+        ""
+    {%- elif val is mapping -%}
+        {{ val[lang] }}
+    {%- else -%}
+        {{ val }}
+    {%- endif -%}
+{%- endmacro -%}

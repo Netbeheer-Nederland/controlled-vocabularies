@@ -27,7 +27,9 @@ ANTORA_PLAYBOOK = sys.argv[1]
 
 SKOS_URL = "{site_url}/{scheme_name}.skos.jsonld"
 SHACL_URL = "{site_url}/{scheme_name}.shacl.jsonld"
-GIT_REPO_URL = "https://github.com/Netbeheer-Nederland"
+GIT_REPO_URL = "https://github.com/Netbeheer-Nederland/controlled-vocabularies"
+
+PREF_LANG = "en"
 
 
 def get_git_ref():
@@ -45,7 +47,7 @@ def generate_skos_ontology(src_file, playbook):
     skos_dict.update({
         "@id": skos_src_dict["@id"],
         "@type": ["skos:ConceptScheme", "owl:Ontology"],
-        "source": f"{GIT_REPO_URL}/blob/{get_git_ref()}/{src_file.name}",
+        "source": f"{GIT_REPO_URL}/blob/{get_git_ref()}/src/vocabs/{src_file.name}",
         "generatedBy": f"{GIT_REPO_URL}/blob/{get_git_ref()}/scripts/build.py",  # TODO: Fix this one in context with a proper IRI.
         "notation": skos_src_dict["@id"].split("/")[-1]
     })
@@ -106,7 +108,7 @@ def generate_antora_page(skos_dict, playbook):
         loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
     ).get_template("scheme.adoc.jinja2")
 
-    adoc = adoc_template.render(scheme=skos_dict, skos_url=skos_url, shacl_url=shacl_url)
+    adoc = adoc_template.render(scheme=skos_dict, skos_url=skos_url, shacl_url=shacl_url, pref_lang=PREF_LANG)
 
     with (ANTORA_ROOT_MODULE_DIR / "pages" / f"{scheme_name}.adoc").open("wt") as f:
         f.write(adoc)
@@ -116,7 +118,7 @@ def write_nav():
     with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("a") as f:
         f.write(f"* Vocabularies\n")
         for vocab in VOCABS_SRC_DIR.glob("*.yml"):
-            f.write(f"** xref:{vocab.name.replace('.skos.yml', '.adoc')}[]")
+            f.write(f"** xref:{vocab.name.replace('.skos.yml', '.adoc')}[]\n")
 
 
 def prepare_build_dir():

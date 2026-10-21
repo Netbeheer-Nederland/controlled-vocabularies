@@ -43,7 +43,7 @@ where:
 
 [horizontal]
 `\{vocab}`:: vocabulary name (non-opaque in "https://en.wikipedia.org/wiki/Letter_case#Kebab_case[kebab-case]")
-`\{term}`::  term name (non-opaque in "UPPERCASE")
+`\{term}`::  term name (non-opaque)
 
 == Life cycle management
 

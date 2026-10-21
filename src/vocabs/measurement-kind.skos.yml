@@ -1,0 +1,18 @@
+"@id": https://modellen.netbeheernederland.nl/controlled-vocabularies/measurement-kind
+"@type": skos:ConceptScheme
+title:
+  en: Measurement Kind
+  nl: Soort meting
+concepts:
+  requiredTransportCapacity:
+    prefLabel:
+      nl: benodigde transportcapaciteit
+      en: required transport capacity
+  demandedTransportCapacity:
+    prefLabel:
+      nl: gevraagde transportcapaciteit
+      en: demanded transport capacity
+  peakRate:
+    prefLabel: 
+      nl: piekbelasting
+      en: peak rate

@@ -1,6 +1,8 @@
 "@id": https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen
 "@type": skos:ConceptScheme
-title: Marktpartijen
+title:
+  nl: Marktpartijen
+  en: Market Parties
 type: http://publications.europa.eu/resource/authority/asset-classification/c_5b130cc6  # Authority file.
 subject: https://begrippen.netbeheernederland.nl/id/hc9px
 concepts:

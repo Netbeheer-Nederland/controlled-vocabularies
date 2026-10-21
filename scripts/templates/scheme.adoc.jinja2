@@ -1,4 +1,5 @@
-= {{ scheme["title"] }}
+// {% from "_helpers.adoc.jinja2" import get_lang_val %}
+= {{ get_lang_val(scheme["title"], pref_lang) }}
 
 [cols="h,4"]
 |===
@@ -25,7 +26,7 @@ a| [no-bullet]
 | Label | Code
 
 {% for term in scheme["@graph"] if not term.get("deprecated") %}
-| [[{{ term["notation"] }}]]{{ term["@id"] }}[*{{ term["prefLabel"] }}*]
+| [[{{ term["notation"] }}]]{{ term["@id"] }}[*{{ get_lang_val(term["prefLabel"], pref_lang) }}*]
 | `{{ term["notation"] }}`
 {% endfor %}
 |===
@@ -33,5 +34,5 @@ a| [no-bullet]
 [discrete]
 === Deprecated
 {% for term in scheme["@graphs"] if term.get("deprecated") %}
-[[{{ term["notation"] }}]]{{ term["@id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
+[[{{ term["notation"] }}]]{{ term["@id"] }}[{{ get_lang_val(term["prefLabel"], pref_lang) }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

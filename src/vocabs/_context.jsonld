@@ -4,9 +4,9 @@
         "foaf": "http://xmlns.com/foaf/0.1/",
         "dcterms": "http://purl.org/dc/terms/",
         "owl": "http://www.w3.org/2002/07/owl",
+        "prov": "http://www.w3.org/ns/prov#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "@vocab": "http://www.w3.org/2004/02/skos/core#",
-        "prefLabel": "skos:prefLabel",
         "homepage": {
             "@id": "foaf:homepage",
             "@type": "xsd:anyURI"
@@ -20,7 +20,30 @@
             "@type": "@id"
         },
         "type": "dcterms:type",
-        "title": "dcterms:title",
+        "title": {
+            "@id": "dcterms:title",
+            "@container": "@language"
+        },
+        "prefLabel": {
+            "@id": "skos:prefLabel",
+            "@container": "@language"
+        },
+        "altLabel": {
+            "@id": "skos:altLabel",
+            "@container": "@language"
+        },
+        "scopeNote": {
+            "@id": "skos:scopeNote",
+            "@container": "@language"
+        },
+        "definition": {
+            "@id": "skos:definition",
+            "@container": "@language"
+        },
+        "description": {
+            "@id": "dcterms:description",
+            "@container": "@language"
+        },
         "notation": {
             "@id": "skos:notation",
             "@type": "xsd:string"
@@ -29,8 +52,8 @@
             "@id": "dcterms:source",
             "@type": "xsd:anyURI"
         },
-        "generatedBy": {
-            "@id": "dcterms:generatedBy",
+        "wasGeneratedBy": {
+            "@id": "prov:wasGeneratedBy",
             "@type": "xsd:anyURI"
         },
         "inScheme": {
