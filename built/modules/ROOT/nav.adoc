@@ -1,4 +1,0 @@
-* xref:architecture.adoc[]
-* Vocabularies
-** xref:measurement-kind.adoc[]
-** xref:marktpartijen.adoc[]

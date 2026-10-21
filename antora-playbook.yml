@@ -1,5 +1,5 @@
 site:
-  url: https://modellen.netbeheernederland.nl/controlled-vocbularies
+  url: https://modellen.netbeheernederland.nl/controlled-vocabularies
   start_page: ROOT::index.adoc
 content:
   sources:
