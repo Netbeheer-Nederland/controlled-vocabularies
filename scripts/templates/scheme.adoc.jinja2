@@ -25,7 +25,7 @@ a| [no-bullet]
 | Label | Code
 
 {% for term_name, term in scheme["terms"].items() if not term.get("deprecated") %}
-| {{ term["id"] }}[*{{ term["prefLabel"] }}*]
+| [[{{ term_name }}]]{{ term["id"] }}[*{{ term["prefLabel"] }}*]
 | `{{ term_name }}`
 {% endfor %}
 |===
@@ -33,5 +33,5 @@ a| [no-bullet]
 [discrete]
 === Deprecated
 {% for term_name, term in scheme["terms"].items() if term.get("deprecated") %}
-{{ term["id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
+[[{{ term_name }}]]{{ term["id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

@@ -23,34 +23,34 @@ a| [no-bullet]
 | Label | Code
 
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ[*Coteq Netbeheer B.V.*]
+| [[COTEQ]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ[*Coteq Netbeheer B.V.*]
 | `COTEQ`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN[*Energie Data Services Nederland*]
+| [[EDSN]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN[*Energie Data Services Nederland*]
 | `EDSN`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS[*Enexis Netbeheer B.V.*]
+| [[ENEXIS]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS[*Enexis Netbeheer B.V.*]
 | `ENEXIS`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT[*ESSENT*]
+| [[ESSENT]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT[*ESSENT*]
 | `ESSENT`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE[*Gasunie Transport Services B.V.*]
+| [[GASUNIE]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE[*Gasunie Transport Services B.V.*]
 | `GASUNIE`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER[*Liander N.V.*]
+| [[LIANDER]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER[*Liander N.V.*]
 | `LIANDER`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO[*N.V. RENDO*]
+| [[RENDO]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO[*N.V. RENDO*]
 | `RENDO`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN[*Stedin Netbeheer B.V.*]
+| [[STEDIN]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN[*Stedin Netbeheer B.V.*]
 | `STEDIN`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET[*TenneT TSO B.V.*]
+| [[TENNET]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET[*TenneT TSO B.V.*]
 | `TENNET`
 
-| https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND[*Westland Infra Netbeheer B.V.*]
+| [[WESTLAND]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND[*Westland Infra Netbeheer B.V.*]
 | `WESTLAND`
 
 |===
@@ -58,4 +58,4 @@ a| [no-bullet]
 [discrete]
 === Deprecated
 
-https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON[NUON]
+[[NUON]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON[NUON]
