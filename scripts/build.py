@@ -5,6 +5,7 @@ import os
 import os.path
 import re
 import shutil
+import subprocess
 import sys
 import textwrap
 import yaml
@@ -25,7 +26,12 @@ ANTORA_ROOT_MODULE_DIR = ANTORA_COMPONENT_DIR / "modules" / "ROOT"
 ANTORA_PLAYBOOK = sys.argv[1]
 
 SKOS_URL = "{site_url}/{scheme_name}.skos.jsonld"
-SHACL_URL = "{site_url}/{scheme_name}.shacl.ttl"
+SHACL_URL = "{site_url}/{scheme_name}.shacl.jsonld"
+GIT_REPO_URL = "https://github.com/Netbeheer-Nederland"
+
+
+def get_git_ref():
+    return subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('ascii').strip()
 
 
 def generate_skos_ontology(src_file, playbook):
@@ -36,12 +42,11 @@ def generate_skos_ontology(src_file, playbook):
     skos_dict = {**skos_ctx_dict}
 
     # Concept scheme.
-    git_ref = "main"
-
     skos_dict.update({
         "id": skos_src_dict["id"],
-        "@type": ["skos:Concept", "owl:Ontology"],
-        "source": f"https://github.com/Netbeheer-Nederland/{playbook['site']['url'].split('/')[-1]}/blob/{git_ref}/{src_file.name}",
+        "@type": ["skos:ConceptScheme", "owl:Ontology"],
+        "source": f"{GIT_REPO_URL}/blob/{get_git_ref()}/{src_file.name}",
+        "generatedBy": f"{GIT_REPO_URL}/blob/{get_git_ref()}/scripts/build.py",  # TODO: Fix this one in context with a proper IRI.
         "notation": skos_src_dict["id"].split("/")[-1]
     })
 
@@ -81,10 +86,10 @@ def generate_shacl_ontology(skos_dict, playbook):
 
     shacl_template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
-    ).get_template("scheme.shacl.ttl.jinja2")
+    ).get_template("scheme.shacl.jsonld.jinja2")
     shacl = shacl_template.render(scheme=skos_dict)
 
-    with (ANTORA_ROOT_MODULE_DIR / "attachments" / f"{scheme_name}.shacl.ttl").open("wt") as f:
+    with (ANTORA_ROOT_MODULE_DIR / "attachments" / f"{scheme_name}.shacl.jsonld").open("wt") as f:
         f.write(shacl)
 
 
@@ -126,7 +131,7 @@ def relocate_skos_schemes():
 
 
 def relocate_shacl_shapes():
-    for shacl_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.shacl.ttl"):
+    for shacl_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.shacl.jsonld"):
         shutil.copy(shacl_file, DEST_DIR)
 
 

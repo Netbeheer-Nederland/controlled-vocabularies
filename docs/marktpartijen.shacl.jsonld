@@ -1,0 +1,34 @@
+{
+  "@context": {
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sh:in": {
+      "@container": "@list",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+  "@type": ["owl:Ontology", "sh:ShapesGraph"],
+  "@graph": [
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#marktpartijenShape",
+      "@type": "sh:NodeShape",
+      "skos:scopeNote": "Users who wish to restrict properties to exclusively allow values from this code list can import this ontology and use this node shape.",
+      "sh:in": [
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET",
+          "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND"
+      ]
+    }
+  ]
+}

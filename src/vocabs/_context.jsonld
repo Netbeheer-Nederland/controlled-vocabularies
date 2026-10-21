@@ -27,6 +27,7 @@
         },
         "id": "@id",
         "source": "dcterms:source",
+        "source": "dcterms:generatedBy",
         "inScheme": {
             "@id": "skos:inScheme",
             "@type": "@id"

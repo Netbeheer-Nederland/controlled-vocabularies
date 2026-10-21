@@ -38,10 +38,10 @@
   },
   "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
   "@type": [
-    "skos:Concept",
+    "skos:ConceptScheme",
     "owl:Ontology"
   ],
-  "source": "https://github.com/Netbeheer-Nederland/controlled-vocbularies/blob/main/marktpartijen.skos.yml",
+  "source": "https://github.com/Netbeheer-Nederland/blob/580aca4f60c2b78ec9b19c2b76f2a1bf30c322f2/marktpartijen.skos.yml",
   "notation": "marktpartijen",
   "subject": "nbnl:hc9px",
   "title": "Marktpartijen",

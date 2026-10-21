@@ -9,12 +9,12 @@
 | nbnl:hc9px
 
 | Source
-| https://github.com/Netbeheer-Nederland/controlled-vocbularies/blob/main/marktpartijen.skos.yml
+| https://github.com/Netbeheer-Nederland/blob/580aca4f60c2b78ec9b19c2b76f2a1bf30c322f2/marktpartijen.skos.yml
 
 | Representations
 a| [no-bullet]
-* https://modellen.netbeheernederland.nl/controlled-vocbularies/marktpartijen.skos.jsonld[SKOS concept scheme (JSON-LD),window=read-later)]
-* https://modellen.netbeheernederland.nl/controlled-vocbularies/marktpartijen.shacl.ttl[SHACL shapes graph (Turtle),window=read-later)]
+* http://localhost:8000/marktpartijen.skos.jsonld[SKOS concept scheme (JSON-LD),window=read-later)]
+* http://localhost:8000/marktpartijen.shacl.jsonld[SHACL shapes graph (JSON-LD),window=read-later)]
 |===
 
 == Terms
