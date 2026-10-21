@@ -1,0 +1,39 @@
+{
+    "@context": {
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "nbnl": "https://begrippen.netbeheernederland.nl/id/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "owl": "http://www.w3.org/2002/07/owl",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "eu-asset": "http://publications.europa.eu/resource/authority/asset-classification/",
+        "@vocab": "http://www.w3.org/2004/02/skos/core#",
+        "prefLabel": "skos:prefLabel",
+        "homepage": {
+            "@id": "foaf:homepage",
+            "@type": "xsd:anyURI"
+        },
+        "deprecated": {
+            "@id": "owl:deprecated",
+            "@type": "xsd:boolean"
+        },
+        "subject": "dcterms:subject",
+        "type": "dcterms:type",
+        "title": "dcterms:title",
+        "terms": {
+            "@id": "dcterms:hasPart",
+            "@container": "@index",
+            "@index": "skos:notation"
+        },
+        "id": "@id",
+        "source": "dcterms:source",
+        "inScheme": {
+            "@id": "skos:inScheme",
+            "@type": "@id"
+        },
+        "topConceptOf": {
+            "@id": "skos:topConceptOf",
+            "@type": "@id"
+        }
+    }
+}

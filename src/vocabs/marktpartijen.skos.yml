@@ -1,0 +1,39 @@
+id: https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen
+title: Marktpartijen
+type: eu-asset:c_5b130cc6  # Authority file.
+subject: nbnl:hc9px
+terms:
+    COTEQ:
+        prefLabel: Coteq Netbeheer B.V.
+        homepage: https://www.coteqnetbeheer.nl
+    EDSN:
+        prefLabel: Energie Data Services Nederland
+        homepage: https://www.edsn.nl
+    ENEXIS:
+        prefLabel: Enexis Netbeheer B.V.
+        homepage: https://www.enexis.nl
+    ESSENT:
+        prefLabel: ESSENT
+        homepage: https://essent.nl
+    GASUNIE:
+        prefLabel: Gasunie Transport Services B.V.
+        homepage: https://www.gasunie.nl
+    LIANDER:
+        prefLabel: Liander N.V.
+        homepage: https://www.liander.nl
+    RENDO:
+        prefLabel: N.V. RENDO
+        homepage: https://www.rendonetwerken.nl
+    STEDIN:
+        prefLabel: Stedin Netbeheer B.V.
+        homepage: https://www.stedin.net
+    TENNET:
+        prefLabel: TenneT TSO B.V.
+        homepage: https://www.tennet.eu
+    WESTLAND:
+        prefLabel: Westland Infra Netbeheer B.V.
+        homepage: https://westlandinfra.nl
+    NUON:
+        prefLabel: NUON
+        homepage: https://nuon.nl
+        deprecated: true

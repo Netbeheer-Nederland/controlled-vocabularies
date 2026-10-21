@@ -1,18 +1,21 @@
-= {{ scheme["title"]["value"] }}
+= {{ scheme["title"] }}
 
 [cols="h,4"]
 |===
 | IRI
-| {{ scheme["iri"]["value"] }}
+| {{ scheme["id"] }}
 
 {% if scheme["subject"] -%}
 | Subject
-| {{ scheme["subject"]["value"] }}
+| {{ scheme["subject"] }}
 {%- endif %}
+
+| Source
+| {{ scheme["source"] }}
 
 | Representations
 a| [no-bullet]
-* {{ skos_url }}[SKOS concept scheme (Turtle),window=read-later)]
+* {{ skos_url }}[SKOS concept scheme (JSON-LD),window=read-later)]
 * {{ shacl_url }}[SHACL shapes graph (Turtle),window=read-later)]
 |===
 
@@ -21,14 +24,14 @@ a| [no-bullet]
 |===
 | Label | Code
 
-{% for term in terms if not term.get("deprecated", dict()).get("value") %}
-| [[{{ term["notation"]["value"] }}]]{{ term["iri"]["value"] }}[*{{ term["prefLabel"]["value"] }}*]
-| `{{ term["notation"]["value"] }}`
+{% for term_name, term in scheme["terms"].items() if not term.get("deprecated") %}
+| {{ term["id"] }}[*{{ term["prefLabel"] }}*]
+| `{{ term_name }}`
 {% endfor %}
 |===
 
 [discrete]
 === Deprecated
-{% for term in terms if term.get("deprecated", dict()).get("value") %}
-{{ term["iri"]["value"] }}[{{ term["prefLabel"]["value"] }}]{% if not loop.last %}, {% endif %}
+{% for term_name, term in scheme["terms"].items() if term.get("deprecated") %}
+{{ term["id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

@@ -11,6 +11,7 @@ import yaml
 from pathlib import Path
 
 import jinja2
+from pyld import jsonld
 from pyoxigraph import Store, parse, serialize, RdfFormat, QueryResultsFormat, Quad, NamedNode, Literal
 
 SCRIPTS_DIR = Path("scripts")
@@ -23,120 +24,72 @@ ANTORA_COMPONENT_DIR = BUILT_DIR
 ANTORA_ROOT_MODULE_DIR = ANTORA_COMPONENT_DIR / "modules" / "ROOT"
 ANTORA_PLAYBOOK = sys.argv[1]
 
-SKOS_URL = "{site_url}/{scheme_name}.skos.ttl"
+SKOS_URL = "{site_url}/{scheme_name}.skos.jsonld"
 SHACL_URL = "{site_url}/{scheme_name}.shacl.ttl"
 
 
-def read_turtle_prefixes(src_file):
-    prefixes = dict()
-    with src_file.open() as f:
-        for line in f:
-            if line.startswith("@prefix"):
-                whitespace = re.compile(r'\s+')
-                parts = whitespace.split(line)
-                prefixes[parts[1].partition(":")[0]] = parts[2].lstrip("<").rstrip(">")
-    return prefixes 
+def generate_skos_ontology(src_file, playbook):
+    skos_src_dict = yaml.safe_load(src_file.read_text())
+    skos_ctx_dict = json.loads((VOCABS_SRC_DIR / "_context.jsonld").read_text())
 
+    # Creating new dict to control insertion order for neater formatting.
+    skos_dict = {**skos_ctx_dict}
 
+    # Concept scheme.
+    git_ref = "main"
 
-def generate_skos_ontology(src_file, vocab, playbook):
-    prefixes = read_turtle_prefixes(src_file)
-    vocab.add(Quad(NamedNode("https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"), NamedNode("http://purl.org/dc/terms/source"), Literal("https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/main/scripts/build.py", datatype=NamedNode("http://www.w3.org/2001/XMLSchema#anyURI"))))
-    vocab.dump(ANTORA_ROOT_MODULE_DIR / "attachments" / src_file.name, format=RdfFormat.TRIG, prefixes=prefixes)  # NOTE: Because there is only a single graph object, this will be Turtle.
+    skos_dict.update({
+        "id": skos_src_dict["id"],
+        "@type": ["skos:Concept", "owl:Ontology"],
+        "source": f"https://github.com/Netbeheer-Nederland/{playbook['site']['url'].split('/')[-1]}/blob/{git_ref}/{src_file.name}",
+        "notation": skos_src_dict["id"].split("/")[-1]
+    })
 
+    # Copy remaining keys from source in sorted order.
+    for key in sorted(skos_src_dict):
+        if key in ["id", "@type", "terms"]:
+            continue
+        skos_dict[key] = skos_src_dict[key]
 
-def generate_shacl_ontology(src_file, vocab, playbook):
-    # Parse query and serialize to dictionary
-    scheme = json.loads(
-        vocab.query(
-            """
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX dcterms: <http://purl.org/dc/terms/>
-        PREFIX owl: <http://www.w3.org/2002/07/owl>
-        SELECT *
-        WHERE {
-            ?iri a skos:ConceptScheme ;
-                dcterms:subject ?subject ;
-                dcterms:type ?type ;
-                skos:notation ?notation ;
-                dcterms:title ?title .
+    # Concepts.
+    skos_dict["terms"] = dict()
+    for term_name, term in skos_src_dict["terms"].items():
+        skos_dict["terms"][term_name] = {
+            "id": f"{skos_src_dict['id']}#{term_name}",
+            "@type": "skos:Concept",
+            "prefLabel": term["prefLabel"]
         }
-    """
-        ).serialize(format=QueryResultsFormat.JSON)
-    )["results"]["bindings"][0]
+        for key in sorted(term):  # Copy remaining keys from source in sorted order.
+            if key in ["id", "@type", "prefLabel"]:
+                continue
+            skos_dict["terms"][term_name][key] = term[key]
 
-    terms = sorted(
-        json.loads(
-            vocab.query(
-                f"""
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl>
-        SELECT *
-        WHERE {{
-            ?iri a skos:Concept ;
-                skos:prefLabel ?prefLabel ;
-                skos:notation ?notation ;
-                skos:inScheme ?scheme .
-                OPTIONAL {{ ?iri owl:deprecated ?deprecated }}
-        }}
-    """
-            ).serialize(format=QueryResultsFormat.JSON)
-        )["results"]["bindings"],
-        key=lambda t: t["iri"]["value"],
-    )
+        skos_dict["terms"][term_name].update({
+            "inScheme": skos_src_dict["id"],
+            "topConceptOf": skos_src_dict["id"]
+        })
 
-    scheme_name = scheme["notation"]["value"]
+    skos_file = (ANTORA_ROOT_MODULE_DIR / "attachments" / f"{skos_dict['notation']}.skos.jsonld")
+    with skos_file.open("wt") as f:
+        json.dump(skos_dict, f, indent=2)
+
+    return skos_dict
+
+
+def generate_shacl_ontology(skos_dict, playbook):
+    scheme_name = skos_dict["notation"]
 
     shacl_template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
     ).get_template("scheme.shacl.ttl.jinja2")
-    shacl = shacl_template.render(scheme=scheme, terms=terms)
+    shacl = shacl_template.render(scheme=skos_dict)
 
     with (ANTORA_ROOT_MODULE_DIR / "attachments" / f"{scheme_name}.shacl.ttl").open("wt") as f:
         f.write(shacl)
 
 
-def generate_antora_page(src_file, vocab, playbook):
-    # TODO: The querying is duplicate in the `generate_shacl_ontology` which I think is undesired.
-    scheme = json.loads(
-        vocab.query(
-            """
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX dcterms: <http://purl.org/dc/terms/>
-        PREFIX owl: <http://www.w3.org/2002/07/owl>
-        SELECT *
-        WHERE {
-            ?iri a skos:ConceptScheme ;
-                dcterms:subject ?subject ;
-                dcterms:type ?type ;
-                skos:notation ?notation ;
-                dcterms:title ?title .
-        }
-    """
-        ).serialize(format=QueryResultsFormat.JSON)
-    )["results"]["bindings"][0]
-
-    terms = sorted(
-        json.loads(
-            vocab.query(
-                f"""
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl>
-        SELECT *
-        WHERE {{
-            ?iri a skos:Concept ;
-                skos:prefLabel ?prefLabel ;
-                skos:notation ?notation ;
-                skos:inScheme ?scheme .
-                OPTIONAL {{ ?iri owl:deprecated ?deprecated }}
-        }}
-    """
-            ).serialize(format=QueryResultsFormat.JSON)
-        )["results"]["bindings"],
-        key=lambda t: t["iri"]["value"],
-    )
-    
-    scheme_name = scheme["notation"]["value"]
+def generate_antora_page(skos_dict, playbook):
+    scheme_name = skos_dict["notation"]
 
     skos_url = SKOS_URL.format(site_url=playbook["site"]["url"], scheme_name=scheme_name)
     shacl_url = SHACL_URL.format(site_url=playbook["site"]["url"], scheme_name=scheme_name)
@@ -145,27 +98,17 @@ def generate_antora_page(src_file, vocab, playbook):
         loader=jinja2.FileSystemLoader(SCRIPTS_DIR / "templates")
     ).get_template("scheme.adoc.jinja2")
 
-    adoc = adoc_template.render(scheme=scheme, terms=terms, skos_url=skos_url, shacl_url=shacl_url)
+    adoc = adoc_template.render(scheme=skos_dict, skos_url=skos_url, shacl_url=shacl_url)
 
     with (ANTORA_ROOT_MODULE_DIR / "pages" / f"{scheme_name}.adoc").open("wt") as f:
         f.write(adoc)
 
 
-def open_vocabulary(src_file):
-    # NOTE: For now only Turtle is supported.
-    vocab = Store()
-
-    for st in parse(path=src_file, format=RdfFormat.TURTLE):
-        vocab.add(st)
-
-    return vocab
-
-
 def write_nav():
     with (ANTORA_ROOT_MODULE_DIR / "nav.adoc").open("a") as f:
         f.write(f"* Vocabularies\n")
-        for vocab in VOCABS_SRC_DIR.glob("*.ttl"):
-            f.write(f"** xref:{vocab.name.replace('.skos.ttl', '.adoc')}[]")
+        for vocab in VOCABS_SRC_DIR.glob("*.yml"):
+            f.write(f"** xref:{vocab.name.replace('.skos.yml', '.adoc')}[]")
 
 
 def prepare_build_dir():
@@ -177,9 +120,8 @@ def prepare_build_dir():
         (ANTORA_ROOT_MODULE_DIR / family).mkdir(exist_ok=True)
 
 
-
 def relocate_skos_schemes():
-    for skos_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.skos.ttl"):
+    for skos_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.skos.jsonld"):
         shutil.copy(skos_file, DEST_DIR)
 
 
@@ -203,26 +145,12 @@ def build():
     prepare_build_dir()
     playbook = read_playbook(ANTORA_PLAYBOOK)
 
-    for src_file in {f for f in VOCABS_SRC_DIR.iterdir() if f.name.endswith(".ttl")}:
-        vocab = open_vocabulary(src_file)
-        generate_skos_ontology(
-            src_file,
-            vocab,
-            playbook
-        )
-        generate_shacl_ontology(
-            src_file,
-            vocab,
-            playbook
-        )
-        generate_antora_page(
-            src_file,
-            vocab,
-            playbook
-        )
+    for src_file in {f for f in VOCABS_SRC_DIR.iterdir() if f.name.endswith(".yml")}:
+        skos_dict = generate_skos_ontology(src_file, playbook)
+        generate_shacl_ontology(skos_dict, playbook)
+        generate_antora_page(skos_dict, playbook)
 
     write_nav()
-
     run_antora()
     relocate_skos_schemes()
     relocate_shacl_shapes()
