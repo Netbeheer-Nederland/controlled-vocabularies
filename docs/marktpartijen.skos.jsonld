@@ -41,7 +41,7 @@
     "skos:Concept",
     "owl:Ontology"
   ],
-  "source": "https://github.com/Netbeheer-Nederland/localhost:8000/blob/main/marktpartijen.skos.yml",
+  "source": "https://github.com/Netbeheer-Nederland/controlled-vocbularies/blob/main/marktpartijen.skos.yml",
   "notation": "marktpartijen",
   "subject": "nbnl:hc9px",
   "title": "Marktpartijen",
