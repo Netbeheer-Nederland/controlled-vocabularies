@@ -10,8 +10,8 @@
 
 | Representations
 a| [no-bullet]
-* https://modellen.netbeheernederland.nl/controlled-vocbularies/marktpartijen.skos.ttl[SKOS concept scheme (Turtle),window=read-later)]
-* https://modellen.netbeheernederland.nl/controlled-vocbularies/marktpartijen.shacl.ttl[SHACL shapes graph (Turtle),window=read-later)]
+* http://localhost:8000/marktpartijen.skos.ttl[SKOS concept scheme (Turtle),window=read-later)]
+* http://localhost:8000/marktpartijen.shacl.ttl[SHACL shapes graph (Turtle),window=read-later)]
 |===
 
 == Terms

@@ -3,6 +3,7 @@
 import json
 import os
 import os.path
+import re
 import shutil
 import sys
 import textwrap
@@ -10,7 +11,7 @@ import yaml
 from pathlib import Path
 
 import jinja2
-from pyoxigraph import Store, parse, RdfFormat, QueryResultsFormat
+from pyoxigraph import Store, parse, serialize, RdfFormat, QueryResultsFormat, Quad, NamedNode, Literal
 
 SCRIPTS_DIR = Path("scripts")
 SRC_DIR = Path("src")
@@ -26,12 +27,22 @@ SKOS_URL = "{site_url}/{scheme_name}.skos.ttl"
 SHACL_URL = "{site_url}/{scheme_name}.shacl.ttl"
 
 
-def generate_skos_ontology(src_file, vocab, playbook):
-    shutil.copy(src_file, ANTORA_ROOT_MODULE_DIR / "attachments")
+def read_turtle_prefixes(src_file):
+    prefixes = dict()
+    with src_file.open() as f:
+        for line in f:
+            if line.startswith("@prefix"):
+                whitespace = re.compile(r'\s+')
+                parts = whitespace.split(line)
+                prefixes[parts[1].partition(":")[0]] = parts[2].lstrip("<").rstrip(">")
+    return prefixes 
 
-    # NOTE: Currently the source file is not processed, i.e. equal to the
-    # built file.
-    # TODO: Add version metadata which has the Git ref as value.
+
+
+def generate_skos_ontology(src_file, vocab, playbook):
+    prefixes = read_turtle_prefixes(src_file)
+    vocab.add(Quad(NamedNode("https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"), NamedNode("http://purl.org/dc/terms/source"), Literal("https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/main/scripts/build.py", datatype=NamedNode("http://www.w3.org/2001/XMLSchema#anyURI"))))
+    vocab.dump(ANTORA_ROOT_MODULE_DIR / "attachments" / src_file.name, format=RdfFormat.TRIG, prefixes=prefixes)  # NOTE: Because there is only a single graph object, this will be Turtle.
 
 
 def generate_shacl_ontology(src_file, vocab, playbook):
