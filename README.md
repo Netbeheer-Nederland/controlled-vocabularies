@@ -17,6 +17,11 @@ First make sure you have an environment activated which satisfies the Python req
 $ python scripts/build.py antora-playbook.local.yml
 ```
 
+There are two Antora playbooks:
+
+* `antora-playbook.local.yml` for local development
+* `antora-playbook.yml` for production
+
 This script processes the source Antora componenet version, generates artifacts and embeds those. Then, it calls `antora` with the passed in playbook to render the
 documentation site.
 

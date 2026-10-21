@@ -31,8 +31,10 @@ a| [no-bullet]
 {% endfor %}
 |===
 
+{% for term in scheme["@graph"] if term.get("deprecated") %}
+{% if loop.first %}
 [discrete]
 === Deprecated
-{% for term in scheme["@graphs"] if term.get("deprecated") %}
+{% endif %}
 [[{{ term["notation"] }}]]{{ term["@id"] }}[{{ get_lang_val(term["prefLabel"], pref_lang) }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

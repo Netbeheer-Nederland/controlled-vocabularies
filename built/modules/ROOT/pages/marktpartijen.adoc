@@ -10,7 +10,7 @@
 | https://begrippen.netbeheernederland.nl/id/hc9px
 
 | Source
-| https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/ff8f252170719f20da9653620f827cfe28634524/src/vocabs/marktpartijen.skos.yml
+| https://github.com/Netbeheer-Nederland/controlled-vocabularies/blob/f600a2b1b37533b9e5bf845f367c20b096b6d601/src/vocabs/marktpartijen.skos.yml
 
 | Representations
 a| [no-bullet]
@@ -56,5 +56,9 @@ a| [no-bullet]
 
 |===
 
+
+
 [discrete]
 === Deprecated
+
+[[NUON]]https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON[NUON]
