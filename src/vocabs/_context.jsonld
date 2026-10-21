@@ -21,11 +21,6 @@
         },
         "type": "dcterms:type",
         "title": "dcterms:title",
-        "concepts": {
-            "@id": "dcterms:hasPart",
-            "@container": "@index",
-            "@index": "skos:notation"
-        },
         "notation": {
             "@id": "skos:notation",
             "@type": "xsd:string"

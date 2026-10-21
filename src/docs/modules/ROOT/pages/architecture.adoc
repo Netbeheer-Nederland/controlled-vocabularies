@@ -138,9 +138,9 @@ SKOS tooling cannot be used to work on these source files, but the gains of the 
 ****
 ====
 
-#TODO#: Include a helpful drawing here.
-YAML -> JSON-LD
+.Build process
+image::build-process.svg[]
 
-Each controlled vocabulary is maintained through a single source file in YAML. The build process converts this to JSON and adds a JSON-LD context, creating a RDF graph. Furthermore, term IRIs are derived from the notations, explicit type statements are added to make the graph a proper SKOS ontology, and the `concepts` key (i.e. `dcterms:hasPart` property) is inverted into more standard `skos:inScheme` statements. Finally some additional information is added, such as the `dcterms:source` of the file.
+Each controlled vocabulary is maintained through a single source file in YAML. The build process converts this to JSON and adds a JSON-LD context, creating a RDF graph. Furthermore, term IRIs are derived from the notations, explicit type statements are added to make the graph a proper SKOS ontology, and the `concepts` key is inverted into more standard `skos:inScheme` statements. Finally some additional information is added, such as the `dcterms:source` of the file.
 
 This way of working keeps maintenance simple for authors, leaving the tedious and error-prone transforming and adding of information to the deterministic build process.

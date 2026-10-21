@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Architecture</title>
-    <link rel="canonical" href="http://localhost:8000/architecture.html">
+    <link rel="canonical" href="https://modellen.netbeheernederland.nl/controlled-vocbularies/architecture.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="marktpartijen.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -323,6 +323,35 @@ numbering scheme.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_process"><a class="anchor" href="#_build_process"></a>Build process</h2>
+<div class="sectionbody">
+<details class="rationale small">
+<summary class="title">Rationale</summary>
+<div class="content">
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>SKOS tooling cannot be used to work on these source files, but the gains of the much easier maintenance easily outweighs that minor deficit given how simple and small these ontologies are.</p>
+</div>
+</div>
+</div>
+</div>
+</details>
+<div class="imageblock">
+<div class="content">
+<img src="_images/build-process.svg" alt="build process">
+</div>
+<div class="title">Figure 1. Build process</div>
+</div>
+<div class="paragraph">
+<p>Each controlled vocabulary is maintained through a single source file in YAML. The build process converts this to JSON and adds a JSON-LD context, creating a RDF graph. Furthermore, term IRIs are derived from the notations, explicit type statements are added to make the graph a proper SKOS ontology, and the <code>concepts</code> key is inverted into more standard <code>skos:inScheme</code> statements. Finally some additional information is added, such as the <code>dcterms:source</code> of the file.</p>
+</div>
+<div class="paragraph">
+<p>This way of working keeps maintenance simple for authors, leaving the tedious and error-prone transforming and adding of information to the deterministic build process.</p>
 </div>
 </div>
 </div>
