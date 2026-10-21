@@ -2,11 +2,9 @@
   "@context": {
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "foaf": "http://xmlns.com/foaf/0.1/",
-    "nbnl": "https://begrippen.netbeheernederland.nl/id/",
     "dcterms": "http://purl.org/dc/terms/",
     "owl": "http://www.w3.org/2002/07/owl",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "eu-asset": "http://publications.europa.eu/resource/authority/asset-classification/",
     "@vocab": "http://www.w3.org/2004/02/skos/core#",
     "prefLabel": "skos:prefLabel",
     "homepage": {
@@ -17,16 +15,29 @@
       "@id": "owl:deprecated",
       "@type": "xsd:boolean"
     },
-    "subject": "dcterms:subject",
+    "subject": {
+      "@id": "dcterms:subject",
+      "@type": "@id"
+    },
     "type": "dcterms:type",
     "title": "dcterms:title",
-    "terms": {
+    "concepts": {
       "@id": "dcterms:hasPart",
       "@container": "@index",
       "@index": "skos:notation"
     },
-    "id": "@id",
-    "source": "dcterms:source",
+    "notation": {
+      "@id": "skos:notation",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "dcterms:source",
+      "@type": "xsd:anyURI"
+    },
+    "generatedBy": {
+      "@id": "dcterms:generatedBy",
+      "@type": "xsd:anyURI"
+    },
     "inScheme": {
       "@id": "skos:inScheme",
       "@type": "@id"
@@ -36,105 +47,117 @@
       "@type": "@id"
     }
   },
-  "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+  "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
   "@type": [
     "skos:ConceptScheme",
     "owl:Ontology"
   ],
-  "source": "https://github.com/Netbeheer-Nederland/blob/580aca4f60c2b78ec9b19c2b76f2a1bf30c322f2/marktpartijen.skos.yml",
+  "source": "https://github.com/Netbeheer-Nederland/blob/8df600bbead3f4aa906c8bbcb5ee5537405298d1/marktpartijen.skos.yml",
+  "generatedBy": "https://github.com/Netbeheer-Nederland/blob/8df600bbead3f4aa906c8bbcb5ee5537405298d1/scripts/build.py",
   "notation": "marktpartijen",
-  "subject": "nbnl:hc9px",
+  "subject": "https://begrippen.netbeheernederland.nl/id/hc9px",
   "title": "Marktpartijen",
-  "type": "eu-asset:c_5b130cc6",
-  "terms": {
-    "COTEQ": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ",
+  "type": "http://publications.europa.eu/resource/authority/asset-classification/c_5b130cc6",
+  "@graph": [
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#COTEQ",
       "@type": "skos:Concept",
       "prefLabel": "Coteq Netbeheer B.V.",
+      "notation": "COTEQ",
       "homepage": "https://www.coteqnetbeheer.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "EDSN": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#EDSN",
       "@type": "skos:Concept",
       "prefLabel": "Energie Data Services Nederland",
+      "notation": "EDSN",
       "homepage": "https://www.edsn.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "ENEXIS": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ENEXIS",
       "@type": "skos:Concept",
       "prefLabel": "Enexis Netbeheer B.V.",
+      "notation": "ENEXIS",
       "homepage": "https://www.enexis.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "ESSENT": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#ESSENT",
       "@type": "skos:Concept",
       "prefLabel": "ESSENT",
+      "notation": "ESSENT",
       "homepage": "https://essent.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "GASUNIE": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#GASUNIE",
       "@type": "skos:Concept",
       "prefLabel": "Gasunie Transport Services B.V.",
+      "notation": "GASUNIE",
       "homepage": "https://www.gasunie.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "LIANDER": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#LIANDER",
       "@type": "skos:Concept",
       "prefLabel": "Liander N.V.",
+      "notation": "LIANDER",
       "homepage": "https://www.liander.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     },
-    "RENDO": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO",
-      "@type": "skos:Concept",
-      "prefLabel": "N.V. RENDO",
-      "homepage": "https://www.rendonetwerken.nl",
-      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
-      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
-    },
-    "STEDIN": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN",
-      "@type": "skos:Concept",
-      "prefLabel": "Stedin Netbeheer B.V.",
-      "homepage": "https://www.stedin.net",
-      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
-      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
-    },
-    "TENNET": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET",
-      "@type": "skos:Concept",
-      "prefLabel": "TenneT TSO B.V.",
-      "homepage": "https://www.tennet.eu",
-      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
-      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
-    },
-    "WESTLAND": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND",
-      "@type": "skos:Concept",
-      "prefLabel": "Westland Infra Netbeheer B.V.",
-      "homepage": "https://westlandinfra.nl",
-      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
-      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
-    },
-    "NUON": {
-      "id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON",
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#NUON",
       "@type": "skos:Concept",
       "prefLabel": "NUON",
+      "notation": "NUON",
       "deprecated": true,
       "homepage": "https://nuon.nl",
       "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
       "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
+    },
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#RENDO",
+      "@type": "skos:Concept",
+      "prefLabel": "N.V. RENDO",
+      "notation": "RENDO",
+      "homepage": "https://www.rendonetwerken.nl",
+      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
+    },
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#STEDIN",
+      "@type": "skos:Concept",
+      "prefLabel": "Stedin Netbeheer B.V.",
+      "notation": "STEDIN",
+      "homepage": "https://www.stedin.net",
+      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
+    },
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#TENNET",
+      "@type": "skos:Concept",
+      "prefLabel": "TenneT TSO B.V.",
+      "notation": "TENNET",
+      "homepage": "https://www.tennet.eu",
+      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
+    },
+    {
+      "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen#WESTLAND",
+      "@type": "skos:Concept",
+      "prefLabel": "Westland Infra Netbeheer B.V.",
+      "notation": "WESTLAND",
+      "homepage": "https://westlandinfra.nl",
+      "inScheme": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen",
+      "topConceptOf": "https://modellen.netbeheernederland.nl/controlled-vocabularies/marktpartijen"
     }
-  }
+  ]
 }

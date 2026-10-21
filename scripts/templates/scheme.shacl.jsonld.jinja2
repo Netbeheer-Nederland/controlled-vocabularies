@@ -10,16 +10,16 @@
       "@type": "@id"
     }
   },
-  "@id": "{{ scheme['id'] }}",
+  "@id": "{{ scheme['@id'] }}",
   "@type": ["owl:Ontology", "sh:ShapesGraph"],
   "@graph": [
     {
-      "@id": "{{ scheme['id'] }}#{{ scheme['notation'] }}Shape",
+      "@id": "{{ scheme['@id'] }}#{{ scheme['notation'] }}Shape",
       "@type": "sh:NodeShape",
       "skos:scopeNote": "Users who wish to restrict properties to exclusively allow values from this code list can import this ontology and use this node shape.",
       "sh:in": [
-        {%- for term in scheme["terms"].values() if not term.get("deprecated") %}
-          "{{ term["id"] }}"{% if not loop.last %},{% endif %}
+        {%- for term in scheme["@graph"] if not term.get("deprecated") %}
+          "{{ term["@id"] }}"{% if not loop.last %},{% endif %}
         {%- endfor %}
       ]
     }

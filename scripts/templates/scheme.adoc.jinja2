@@ -3,7 +3,7 @@
 [cols="h,4"]
 |===
 | IRI
-| {{ scheme["id"] }}
+| {{ scheme["@id"] }}
 
 {% if scheme["subject"] -%}
 | Subject
@@ -24,14 +24,14 @@ a| [no-bullet]
 |===
 | Label | Code
 
-{% for term_name, term in scheme["terms"].items() if not term.get("deprecated") %}
-| [[{{ term_name }}]]{{ term["id"] }}[*{{ term["prefLabel"] }}*]
-| `{{ term_name }}`
+{% for term in scheme["@graph"] if not term.get("deprecated") %}
+| [[{{ term["notation"] }}]]{{ term["@id"] }}[*{{ term["prefLabel"] }}*]
+| `{{ term["notation"] }}`
 {% endfor %}
 |===
 
 [discrete]
 === Deprecated
-{% for term_name, term in scheme["terms"].items() if term.get("deprecated") %}
-[[{{ term_name }}]]{{ term["id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
+{% for term in scheme["@graphs"] if term.get("deprecated") %}
+[[{{ term["notation"] }}]]{{ term["@id"] }}[{{ term["prefLabel"] }}]{% if not loop.last %}, {% endif %}
 {%- endfor %}

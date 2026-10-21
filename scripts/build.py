@@ -43,36 +43,39 @@ def generate_skos_ontology(src_file, playbook):
 
     # Concept scheme.
     skos_dict.update({
-        "id": skos_src_dict["id"],
+        "@id": skos_src_dict["@id"],
         "@type": ["skos:ConceptScheme", "owl:Ontology"],
         "source": f"{GIT_REPO_URL}/blob/{get_git_ref()}/{src_file.name}",
         "generatedBy": f"{GIT_REPO_URL}/blob/{get_git_ref()}/scripts/build.py",  # TODO: Fix this one in context with a proper IRI.
-        "notation": skos_src_dict["id"].split("/")[-1]
+        "notation": skos_src_dict["@id"].split("/")[-1]
     })
 
     # Copy remaining keys from source in sorted order.
     for key in sorted(skos_src_dict):
-        if key in ["id", "@type", "terms"]:
+        if key in ["@id", "@type", "concepts"]:
             continue
         skos_dict[key] = skos_src_dict[key]
 
     # Concepts.
-    skos_dict["terms"] = dict()
-    for term_name, term in skos_src_dict["terms"].items():
-        skos_dict["terms"][term_name] = {
-            "id": f"{skos_src_dict['id']}#{term_name}",
+    skos_dict["@graph"] = []
+    for term_name in sorted(skos_src_dict["concepts"]):
+        term = skos_src_dict["concepts"][term_name]
+        term_new = {
+            "@id": f"{skos_src_dict['@id']}#{term_name}",
             "@type": "skos:Concept",
-            "prefLabel": term["prefLabel"]
+            "prefLabel": term["prefLabel"],
+            "notation": term_name,
         }
-        for key in sorted(term):  # Copy remaining keys from source in sorted order.
-            if key in ["id", "@type", "prefLabel"]:
+        for key in sorted(term.keys()):  # Copy remaining keys from source in sorted order.
+            if key in ["@id", "@type", "prefLabel"]:
                 continue
-            skos_dict["terms"][term_name][key] = term[key]
+            term_new[key] = term[key]
 
-        skos_dict["terms"][term_name].update({
-            "inScheme": skos_src_dict["id"],
-            "topConceptOf": skos_src_dict["id"]
+        term_new.update({
+            "inScheme": skos_src_dict["@id"],
+            "topConceptOf": skos_src_dict["@id"]
         })
+        skos_dict["@graph"].append(term_new)
 
     skos_file = (ANTORA_ROOT_MODULE_DIR / "attachments" / f"{skos_dict['notation']}.skos.jsonld")
     with skos_file.open("wt") as f:

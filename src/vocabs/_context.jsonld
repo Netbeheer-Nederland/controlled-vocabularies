@@ -2,11 +2,9 @@
     "@context": {
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "foaf": "http://xmlns.com/foaf/0.1/",
-        "nbnl": "https://begrippen.netbeheernederland.nl/id/",
         "dcterms": "http://purl.org/dc/terms/",
         "owl": "http://www.w3.org/2002/07/owl",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "eu-asset": "http://publications.europa.eu/resource/authority/asset-classification/",
         "@vocab": "http://www.w3.org/2004/02/skos/core#",
         "prefLabel": "skos:prefLabel",
         "homepage": {
@@ -17,17 +15,29 @@
             "@id": "owl:deprecated",
             "@type": "xsd:boolean"
         },
-        "subject": "dcterms:subject",
+        "subject": {
+            "@id": "dcterms:subject",
+            "@type": "@id"
+        },
         "type": "dcterms:type",
         "title": "dcterms:title",
-        "terms": {
+        "concepts": {
             "@id": "dcterms:hasPart",
             "@container": "@index",
             "@index": "skos:notation"
         },
-        "id": "@id",
-        "source": "dcterms:source",
-        "source": "dcterms:generatedBy",
+        "notation": {
+            "@id": "skos:notation",
+            "@type": "xsd:string"
+        },
+        "source": {
+            "@id": "dcterms:source",
+            "@type": "xsd:anyURI"
+        },
+        "generatedBy": {
+            "@id": "dcterms:generatedBy",
+            "@type": "xsd:anyURI"
+        },
         "inScheme": {
             "@id": "skos:inScheme",
             "@type": "@id"
