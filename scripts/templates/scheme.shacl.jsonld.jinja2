@@ -10,9 +10,11 @@
       "@type": "@id"
     }
   },
-  "@id": "{{ scheme['@id'] }}",
-  "@type": ["owl:Ontology", "sh:ShapesGraph"],
   "@graph": [
+    {
+      "@id": "{{ scheme['@id'] }}",
+      "@type": ["owl:Ontology", "sh:ShapesGraph"]
+    },
     {
       "@id": "{{ scheme['@id'] }}#{{ scheme['notation'] }}Shape",
       "@type": "sh:NodeShape",
