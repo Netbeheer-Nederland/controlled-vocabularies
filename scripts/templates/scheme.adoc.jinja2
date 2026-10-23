@@ -1,24 +1,16 @@
 // {% from "_helpers.adoc.jinja2" import get_lang_val %}
 = {{ get_lang_val(scheme["title"], pref_lang) }}
 
-[cols="h,4"]
-|===
-| IRI
-| {{ scheme["@id"] }}
-
+[#metadata]
+IRI:: {{ scheme["@id"] }}
 {% if scheme["subject"] -%}
-| Subject
-| {{ scheme["subject"] }}
+Subject:: {{ scheme["subject"] }}
 {%- endif %}
-
-| Source
-| {{ scheme["source"] }}
-
-| Representations
-a| [no-bullet]
+Source:: {{ scheme["source"] }}
+Representations::
+[no-bullet]
 * {{ skos_url }}[SKOS concept scheme (JSON-LD),window=read-later)]
 * {{ shacl_url }}[SHACL shapes graph (JSON-LD),window=read-later)]
-|===
 
 == Terms
 
