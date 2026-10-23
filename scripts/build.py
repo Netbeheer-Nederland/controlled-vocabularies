@@ -48,7 +48,7 @@ def generate_skos_ontology(src_file, playbook):
         "@id": skos_src_dict["@id"],
         "@type": ["skos:ConceptScheme", "owl:Ontology"],
         "source": f"{GIT_REPO_URL}/blob/{get_git_ref()}/src/vocabs/{src_file.name}",
-        "generatedBy": f"{GIT_REPO_URL}/blob/{get_git_ref()}/scripts/build.py",  # TODO: Fix this one in context with a proper IRI.
+        "wasGeneratedBy": f"{GIT_REPO_URL}/blob/{get_git_ref()}/scripts/build.py",  # TODO: Fix this one in context with a proper IRI.
         "notation": skos_src_dict["@id"].split("/")[-1]
     })
 
@@ -130,14 +130,15 @@ def prepare_build_dir():
         (ANTORA_ROOT_MODULE_DIR / family).mkdir(exist_ok=True)
 
 
-def relocate_skos_schemes():
+def relocate_artifacts():
     for skos_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.skos.jsonld"):
         shutil.copy(skos_file, DEST_DIR)
 
-
-def relocate_shacl_shapes():
     for shacl_file in (ANTORA_ROOT_MODULE_DIR / "attachments").glob("*.shacl.jsonld"):
         shutil.copy(shacl_file, DEST_DIR)
+
+    shutil.copy(VOCABS_SRC_DIR / "_context.jsonld", DEST_DIR)
+    
 
 
 def run_antora():
@@ -162,8 +163,7 @@ def build():
 
     write_nav()
     run_antora()
-    relocate_skos_schemes()
-    relocate_shacl_shapes()
+    relocate_artifacts()
     (DEST_DIR / ".nojekyll").touch()  # Disables GitHub's default Jekyll CI/CD pipeline.
 
 
